@@ -136,13 +136,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ url('team/list') }}" class="nav-link">
+                                <a href="{{ url('teams') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p> Buscar Times </p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('team/my-teams') }}" class="nav-link">
+                                <a href="{{ url('teams/my-teams') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p> Meus Times </p>
                                 </a>
@@ -179,7 +179,7 @@
 
         <!-- Main content -->
         <section class="content">
-            @yield('adminlte_content')
+            @yield('content')
         </section>
         <!-- /.content -->
     </div>
