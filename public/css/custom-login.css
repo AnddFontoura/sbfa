@@ -1,0 +1,7 @@
+.login-page,
+.register-page {
+    background-image: url(../img/stadium_bg.jpg);
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position: center;
+}
