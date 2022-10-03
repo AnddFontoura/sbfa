@@ -37,7 +37,7 @@
                         @enderror
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" name="confirm-password" placeholder="Confirmar senha" required autocomplete="new-password">
+                        <input type="password" class="form-control" name="password_confirmation" placeholder="Confirmar senha" required autocomplete="new-password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
