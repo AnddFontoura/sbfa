@@ -28,8 +28,8 @@ Route::middleware(['auth'])->group(function() {
     });
 
     Route::prefix('teams-has-players')->group(function() {
-        Route::get('team/{teamId}', 'TeamHasPlayersController@list')->name('team_has_player');
-        Route::get('team/{teamId}/{playerId}', 'TeamHasPlayersController@list')->name('team_has_player.edit');
+        Route::get('team/{teamId}', 'TeamHasPlayersController@index')->name('team_has_player');
+        Route::get('team/{teamId}/{playerId}', 'TeamHasPlayersController@index')->name('team_has_player.edit');
         Route::post('store/{teamId}', 'TeamHasPlayersController@store')->name('team_has_player.save');
         Route::post('store/{teamId}/{playerId}', 'TeamHasPlayersController@store')->name('team_has_player.update');
     });

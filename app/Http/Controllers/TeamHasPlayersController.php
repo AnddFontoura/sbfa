@@ -9,41 +9,23 @@ use Illuminate\Http\Request;
 
 class TeamHasPlayersController extends Controller
 {
-    
-    protected $model;
-    protected $viewFolder;
-    protected $multipleRecordName;
-    protected $singleRecordName;
-    protected $teamModel;
-    protected $gamePositionsModel;
-    
-    function __construct()
-    {
-        $this->teamModel = new Team();
-        $this->model = new TeamHasPlayers();
-        $this->gamePositionsModel = new GamePosition();
-        $this->viewFolder = "team_has_player";
-        $this->singleRecordName = "teamHasPlayer";
-        $this->multipleRecordName = "teamHasPlayers";
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function list(Request $request, int $teamId, ?int $playerId = null)
+    public function index(Request $request, int $teamId, ?int $playerId = null)
     {
         $player = null;
-        $gamePositions = $this->gamePositionsModel::get();
-        ${$this->multipleRecordName} = $this->model::where('team_id', $teamId)->get();
-        $team = $this->teamModel::where('id', $teamId)->first();
+        $gamePositions = GamePosition::get();
+        $teamHasPlayers = TeamHasPlayers::where('team_id', $teamId)->get();
+        $team = Team::where('id', $teamId)->first();
         
         if($playerId) {
             $player = $this->model::where('id', $playerId)->where('team_id', $teamId)->first();
         }
 
-        return view($this->viewFolder . '.index', compact($this->multipleRecordName, 'team', 'player', 'gamePositions'));
+        return view('team_has_player.index', compact('teamHasPlayers', 'team', 'player', 'gamePositions'));
     }
 
     /**
@@ -54,11 +36,10 @@ class TeamHasPlayersController extends Controller
     public function create(int $teamId, ?int $playerId = null)
     {
         $player = null;
-        $team = $this->teamModel::where('id', $teamId)->first();
-        $gamePositions = $this->gamePositionsModel::get();
+        $team = Team::where('id', $teamId)->first();
+        $gamePositions = GamePosition::get();
 
-
-        return view($this->viewFolder . '.form', compact('team', 'player', 'gamePositions'));
+        return view('team_has_player.form', compact('team', 'player', 'gamePositions'));
     }
 
     /**
@@ -80,9 +61,9 @@ class TeamHasPlayersController extends Controller
         $data['team_id'] = $teamId;
 
         if ($playerId) {
-            $this->model::where('id', $playerId)->update($data);
+            TeamHasPlayers::where('id', $playerId)->update($data);
         } else {
-            $this->model::create($data);
+            TeamHasPlayers::create($data);
         }
 
         return redirect('teams-has-players/team/' . $teamId);
