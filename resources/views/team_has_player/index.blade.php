@@ -94,7 +94,7 @@
                                 <label for="teamPosition">Posição do jogador</label>
                                 <select name="position_id" class="select2 w-100">
                                     @foreach($gamePositions as $position)
-                                    <option value="{{ $position->id }}" @if($player && $player->position_id == $position->id) required @endif> {{ $position->name }} ({{ $position->short }}) </option>
+                                        <option value="{{ $position->id }}" @if($player && $player->position_id == $position->id) selected @endif> {{ $position->name }} ({{ $position->short }}) </option>
                                     @endforeach
                                 </select>
                             </div>
