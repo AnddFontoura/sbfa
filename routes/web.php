@@ -32,6 +32,5 @@ Route::middleware(['auth'])->group(function() {
         Route::get('team/{teamId}/{playerId}', 'TeamHasPlayersController@list')->name('team_has_player.edit');
         Route::post('store/{teamId}', 'TeamHasPlayersController@store')->name('team_has_player.save');
         Route::post('store/{teamId}/{playerId}', 'TeamHasPlayersController@store')->name('team_has_player.update');
-        Route::get('show/{teamId}/{playerId}', 'TeamHasPlayersController@show')->name('team_has_player.view');
     });
 });
