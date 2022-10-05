@@ -10,17 +10,11 @@ use Illuminate\Support\Facades\Storage;
 
 class TeamController extends Controller
 {
-    protected $model;
-    protected $viewFolder;
-    protected $multipleRecordName;
-    protected $singleRecordName;
-
-    function __construct()
+    public function index(Request $request)
     {
-        $this->model = new Team();
-        $this->viewFolder = "team";
-        $this->singleRecordName = "team";
-        $this->multipleRecordName = "teams";
+        $teams = Team::paginate($this->paginate);
+
+        return view('team.index', compact('teams'));
     }
 
     public function myTeams()
@@ -40,13 +34,13 @@ class TeamController extends Controller
     {
         $cities = City::get();
 
-        ${$this->singleRecordName} = null;
+        $team = null;
 
         if ($id) {
-            ${$this->singleRecordName} = $this->model::where('id', $id)->first();
+            $team = $this->model::where('id', $id)->first();
         }
 
-        return view('team.form', compact($this->singleRecordName, 'cities'));
+        return view('team.form', compact('team', 'cities'));
     }
 
     /**
@@ -74,37 +68,35 @@ class TeamController extends Controller
             'header' => 'nullable',
         ]);
 
-        $data = $request->all();
+        $data = $request->except('_token');
 
         if ($id) {
-            unset($data['_token']);
-
-            $this->model::where('id', $id)
+            Team::where('id', $id)
                 ->update($data);
 
-            ${$this->singleRecordName} = $this->model::where('id', $id)
+            $team = Team::where('id', $id)
                 ->first();
         } else {
             $data['owner_id'] = Auth::id();
 
-            ${$this->singleRecordName} = $this->model::create($data);
+            $team = Team::create($data);
         }
 
         if ($request->file('logo')) {
             $fileName = Storage::disk('public')->put('logos', $data['logo']);
 
-            ${$this->singleRecordName}->logo = $fileName;
-            ${$this->singleRecordName}->save();
+            $team->logo = $fileName;
+            $team->save();
         }
 
         if ($request->file('header')) {
             $fileName = Storage::disk('public')->put('headers', $data['header']);
 
-            ${$this->singleRecordName}->header = $fileName;
-            ${$this->singleRecordName}->save();
+            $team->header = $fileName;
+            $team->save();
         }
 
-        return redirect($this->multipleRecordName . "/show/" . ${$this->singleRecordName}->id);
+        return redirect("teams/show/" . $team->id);
     }
 
     /**
@@ -115,10 +107,10 @@ class TeamController extends Controller
      */
     public function show(int $id)
     {
-        ${$this->singleRecordName} = $this->model::where('id', $id)
+        $team = Team::where('id', $id)
                 ->first();
 
-        return view($this->viewFolder . ".view",  compact($this->singleRecordName));
+        return view("team.view",  compact('team'));
     }
 
     /**

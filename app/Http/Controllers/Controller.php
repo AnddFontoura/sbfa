@@ -12,28 +12,4 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    
-    protected $model;
-    protected $viewFolder;
-    protected $multipleRecordName;
-    protected $singleRecordName;
-    protected $paginate;
-
-    function __construct()
-    {
-        parent::__construct();
-        $this->paginate = ConfigurationEnum::PAGINATE_VALUE;
-    }
-
-    public function index(Request $request)
-    {
-        ${$this->multipleRecordName} = $this->model::paginate($this->paginate);
-
-        return view($this->viewFolder . '.index', compact($this->multipleRecordName));
-    }
-
-    public function uploadImage($fileInformation)
-    {
-        
-    }
 }
