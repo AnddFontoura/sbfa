@@ -11,7 +11,7 @@ class PermissionService {
         $userId = Auth::id();
         $team = Team::where('id', $teamId)->first();
 
-        if ($team->owner_id == $userId) {
+        if ($team->owner_id != $userId) {
             abort(404);
         }
     }
