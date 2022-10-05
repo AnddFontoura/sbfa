@@ -53,8 +53,10 @@ class TeamController extends Controller
      */
     public function store(Request $request, int $id = null)
     {
-        $this->permissionService->checkIfLoggedUserCanManageTeam($id);        
-
+        if ($id) {
+            $this->permissionService->checkIfLoggedUserCanManageTeam($id);        
+        }
+        
         $this->validate($request, [
             'name' => 'required|string|min:1|max:254',
             'description' => 'nullable|string|max:10000',
