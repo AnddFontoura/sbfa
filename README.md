@@ -23,16 +23,16 @@ Todo botão de deletar -> danger
 ## Instalação simples:
 - Windows:
 
-Baixe o Laragon (https://laragon.org/) e instale
-Com ele instalado, abra o terminal do programa, clone o projeto, entre no projeto
-composer install
-php artisan key:generate
-php artisan storage:link
-Copie, cole e renomeie o arquivo .env.example para .env
-Abra o arquivo .env no editor de sua preferencia (sugiro o visual studio code com a extensão phpintelephense instalado)
-Modifque as conexões do banco, se usou laragon padrão talvez só precise mudar a senha do banco para vazio ao inves de root
-php artisan migrate
-php artisan serve
+- Baixe o Laragon (https://laragon.org/) e instale
+- Com ele instalado, abra o terminal do programa, clone o projeto, entre no projeto
+- composer install
+- php artisan key:generate
+- php artisan storage:link
+- Copie, cole e renomeie o arquivo .env.example para .env
+- Abra o arquivo .env no editor de sua preferencia (sugiro o visual studio code com a extensão phpintelephense instalado)
+- Modifque as conexões do banco, se usou laragon padrão talvez só precise mudar a senha do banco para vazio ao inves de root
+- php artisan migrate
+- php artisan serve
 
 Teoricamente seu sistema está pronto pra rodar se você apertar o start all (iniciar tudo) do Laragon
 

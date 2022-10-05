@@ -16,6 +16,8 @@ class TeamHasPlayersController extends Controller
      */
     public function index(Request $request, int $teamId, ?int $playerId = null)
     {
+        $this->permissionService->checkIfLoggedUserCanManageTeam($teamId);
+
         $player = null;
         $gamePositions = GamePosition::get();
         $teamHasPlayers = TeamHasPlayers::where('team_id', $teamId)->get();
@@ -36,6 +38,8 @@ class TeamHasPlayersController extends Controller
      */
     public function store(Request $request, int $teamId, ?int $playerId = null)
     {
+        $this->permissionService->checkIfLoggedUserCanManageTeam($teamId);
+
         $this->validate($request, [
             'name' => 'required|string|min:1|max:200',
             'nickname' => 'nullable|string|min:1|max:200',
