@@ -37,7 +37,9 @@ class TeamController extends Controller
         $team = null;
 
         if ($id) {
-            $team = $this->model::where('id', $id)->first();
+            $this->permissionService->checkIfLoggedUserCanManageTeam($id);
+
+            $team = Team::where('id', $id)->first();
         }
 
         return view('team.form', compact('team', 'cities'));
@@ -51,14 +53,7 @@ class TeamController extends Controller
      */
     public function store(Request $request, int $id = null)
     {
-        if ($id) {
-            $currentData = $this->model::where('id', $id)
-                ->first();
-
-            if ($currentData->owner_id != Auth::id()) {
-                return back()->withErrors('Você não tem permissão para atualizar esse time');
-            }
-        }
+        $this->permissionService->checkIfLoggedUserCanManageTeam($id);        
 
         $this->validate($request, [
             'name' => 'required|string|min:1|max:254',
@@ -83,16 +78,12 @@ class TeamController extends Controller
         }
 
         if ($request->file('logo')) {
-            $fileName = Storage::disk('public')->put('logos', $data['logo']);
-
-            $team->logo = $fileName;
+            $team->logo = $this->uploadService->uploadFileToFolder('public', 'logos', $data['logo']);
             $team->save();
         }
 
         if ($request->file('header')) {
-            $fileName = Storage::disk('public')->put('headers', $data['header']);
-
-            $team->header = $fileName;
+            $team->header = $this->uploadService->uploadFileToFolder('public', 'headers', $data['header']);
             $team->save();
         }
 

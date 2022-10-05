@@ -30,7 +30,7 @@
             <div class="card-body">
                 @if(count($teamHasPlayers) == 0)
                 <div class="alert alert-success m-3">
-                    Ainda não existem jogadores adicionados. <a href="{{ route('team_has_player.create', $team->id) }}"> Que tal incluir um agora? </a>
+                    Ainda não existem jogadores adicionados. Utilize o formulário ao lada para incluir um agora. </a>
                 </div>
                 @else
                 <table class="table table-striped w-100">
