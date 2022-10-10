@@ -11,6 +11,13 @@
         <div class="card-body">
             <form action="{{ route('login') }}" method="post">
                 @csrf
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                    <div>{{ $error }}</div>
+                    @endforeach
+                </div>
+                @endif
                 <div class="input-group mb-3">
                     <input type="email" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
