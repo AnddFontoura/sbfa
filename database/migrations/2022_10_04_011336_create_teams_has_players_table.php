@@ -21,6 +21,11 @@ class CreateTeamsHasPlayersTable extends Migration
             $table->string('name', 200)->nullable(false);
             $table->string('nickname', 200)->nullable(true);
             $table->integer('number')->nullable(true);
+            $table->integer('weight')->nullable(true);
+            $table->integer('height')->nullable(true);
+            $table->date('birthday')->nullable(true);
+            $table->boolean('active')->default(1);
+            $table->text('inactive_reason')->nullable(true);
             $table->timestamps();
             $table->softDeletes();
 

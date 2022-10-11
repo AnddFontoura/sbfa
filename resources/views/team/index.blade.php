@@ -36,9 +36,7 @@
 
                 @if($team->owner_id == Auth::id())
                 <div class="card-footer text-center bg-secondary">
-                    <a href="#" title="Partidas" class="btn btn-warning"> P </a>
-                    <a href="{{ route('team_has_player', $team->id) }}" title="Jogadores" class="btn btn-info"> J </a>
-                    <a href="#" title="Financeiro" class="btn btn-success"> F </a>
+                    <a href="{{ route('configuration.team', $team->id) }}" title="Configurações" class="btn btn-lg btn-warning"> <i class="fas fa-cogs"></i> </a>
                 </div>
                 @endif
             </div>
