@@ -19,6 +19,8 @@
     @yield('content')
 
     <!-- Scripts -->
+    <!-- jQuery -->
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('js/adminlte.js') }}" defer></script>
 </body>
 </html>
