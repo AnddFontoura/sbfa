@@ -45,4 +45,14 @@ Route::middleware(['auth'])->group(function() {
     Route::prefix('configuration')->group(function() {
         Route::get('team/{teamId}', 'ConfigurationController@team')->name('configuration.team');
     });
+    
+    Route::prefix('matches')->group(function() {
+        //Route::match(['get', 'post'], '/', 'MatchesController@index')->name('teams');
+        //Route::match(['get', 'post'], 'my-teams', 'MatchesController@myTeams');
+        Route::get('form/{teamId}', 'MatchesController@create')->name('matches.create');
+        Route::get('form/{teamId}/{matchId}', 'MatchesController@create')->name('matches.edit');
+        Route::post('store/{teamId}', 'MatchesController@store')->name('matches.save');
+        Route::post('store/{teamId}/{matchId}', 'MatchesController@store')->name('matches.update');
+        Route::get('show/{matchId}', 'MatchesController@show')->name('matches.view');
+    });
 });

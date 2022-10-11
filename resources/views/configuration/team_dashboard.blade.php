@@ -91,9 +91,11 @@
             </div>
 
             <div class="card-body">
-                <div class="alert alert-danger">
-                    Nenhum jogo cadastrado
-                </div>
+                @if(!$lastMatches)
+
+                @else
+                <div class="alert alert-danger"> Nenhum jogo cadastrado, <a href="{{ route('matches.create', $team->id) }}"> clique aqui para cadastrar um </a> </div>
+                @endif
             </div>
         </div>
     </div>
@@ -105,7 +107,7 @@
 <script>
     $('.btnInvitePlayer').on('click', function() {
         var playerId = $(this).data('playerid');
-        
+
         Swal.fire({
             title: 'Indique o e-mail do jogador',
             input: 'email',
