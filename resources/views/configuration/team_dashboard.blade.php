@@ -92,7 +92,31 @@
 
             <div class="card-body">
                 @if(!$lastMatches)
+                <table class="table table-stripped">
+                    <thead>
+                        <tr>
+                            <th> Time Mandante </th>
+                            <th> </th>
+                            <th> X </th>
+                            <th> </th>
+                            <th> Time Visitante </th>
+                            <th> Opções </th>
+                        </tr>
+                    </thead>
 
+                    <tbody>
+                        @foreach($lastMatches as $match)
+                        <tr>
+                            <td> {{ $match->homeTeam->name ?? $match->home_team_name }}</td>
+                            <td> {{ $match->home_score }}</td>
+                            <td> x </td>
+                            <td> {{ $match->visitor_score }}</td>
+                            <td> {{ $match->visitorTeam->name ?? $match->visitor_team_name }} </td>
+                            <td></td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
                 @else
                 <div class="alert alert-danger"> Nenhum jogo cadastrado, <a href="{{ route('matches.create', $team->id) }}"> clique aqui para cadastrar um </a> </div>
                 @endif
