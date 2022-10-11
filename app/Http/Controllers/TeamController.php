@@ -66,7 +66,7 @@ class TeamController extends Controller
         ]);
 
         $data = $request->except('_token');
-
+           
         if ($id) {
             Team::where('id', $id)
                 ->update($data);

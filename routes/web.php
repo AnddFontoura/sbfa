@@ -28,9 +28,21 @@ Route::middleware(['auth'])->group(function() {
     });
 
     Route::prefix('teams-has-players')->group(function() {
-        Route::get('team/{teamId}', 'TeamHasPlayersController@index')->name('team_has_player');
-        Route::get('team/{teamId}/{playerId}', 'TeamHasPlayersController@index')->name('team_has_player.edit');
+        Route::get('team/{teamId}', 'TeamHasPlayersController@create')->name('team_has_player.create');
+        Route::get('team/{teamId}/{playerId}', 'TeamHasPlayersController@create')->name('team_has_player.edit');
         Route::post('store/{teamId}', 'TeamHasPlayersController@store')->name('team_has_player.save');
-        Route::post('store/{teamId}/{playerId}', 'TeamHasPlayersController@store')->name('team_has_player.update');
+        Route::post('store/{teamId}/{playerId}', 'TeamHasPlayersController@update')->name('team_has_player.update');
+        Route::get('show/{teamId}/{playerId}', 'TeamHasPlayersController@view')->name('team_has_player.view');
+        Route::delete('delete', 'TeamHasPlayersController@delete')->name('team_has_player.delete');
+    });
+
+    Route::prefix('players-invited')->group(function() {
+        Route::post('invite', 'PlayerInvitedController@invite')->name('players_invited.invite');
+        Route::post('yes', 'PlayerInvitedController@yes')->name('players_invited.yes');
+        Route::post('no', 'PlayerInvitedController@no')->name('players_invited.no');
+    });
+
+    Route::prefix('configuration')->group(function() {
+        Route::get('team/{teamId}', 'ConfigurationController@team')->name('configuration.team');
     });
 });

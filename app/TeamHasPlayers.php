@@ -18,6 +18,11 @@ class TeamHasPlayers extends Model
         'name',
         'nickname',
         'number',
+        'weight',
+        'height',
+        'birthday',
+        'active',
+        'inactive_reason',
     ];
 
     public function player()

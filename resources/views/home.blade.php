@@ -1,6 +1,32 @@
 @extends('layouts.adminlte')
 
 @section('content')
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1> Dashboard - Página principal </h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="row mt-3">
+    @if(count($playerInvitedToAnyTeam) > 0)
+    <div class="col-md-6 col-lg-3 col-12">
+        @foreach($playerInvitedToAnyTeam as $invite)
+            <div class="alert alert-warning mt-3">
+                <p class="text-white"> O time <b>{{ $invite->teamHasPlayer->team->name }}</b> de <b> {{ $invite->teamHasPlayer->team->city->name }}/{{ $invite->teamHasPlayer->team->city->state->short}} </b> convidou você para ser parte do elenco, deseja participar? </p>
+                <div href="{{ route('players_invited.yes', $invite->id) }}" class="btn btn-lg btn-success mt-3 mr-3 btnAcceptInvite" data-inviteid="{{ $invite->id }}"> <i class="fas fa-check-square"></i> Sim </div> 
+                <div href="{{ route('players_invited.no', $invite->id) }}" class="btn btn-lg btn-danger mt-3 mr-3 btnRefuseInvite" data-inviteid="{{ $invite->id }}"> <i class="fas fa-window-close"></i> Não </div>
+                <a href="{{ route('teams.view', $invite->teamHasPlayer->id) }}" class="btn btn-lg btn-info mt-3"> <i class="fas fa-eye"></i> Ver time </a>
+            </div>
+        @endforeach
+    </div>
+    @endif
+</div>
+
 <div class="row">
     <div class="col-lg-4 col-6">
         <div class="small-box bg-success">
@@ -139,4 +165,122 @@
        
     </div>
 </div>
+@endsection
+
+@section('page_js')
+<script>
+    $('.btnAcceptInvite').on('click', function() {
+        var inviteId = $(this).data('inviteid');
+        
+        Swal.fire({
+            title: 'Atenção!',
+            text: 'Você está prestes a aceitar um convite. Você terá acesso a algumas informações desse time ao aceitar. Deseja continuar?',
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, aceitar',
+            cancelButtonText: 'Não, cancelar'
+        }).then((result) => {
+            if (result.value) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                var request = $.ajax({
+                    url: "{{ url('players-invited/yes') }}",
+                    method: "POST",
+                    data: {
+                        id: inviteId,
+                    },
+                    dataType: "json"
+                });
+                request.done(function() {
+                    Swal.fire({
+                            title: 'Pronto!',
+                            text: 'Você aprovou o convite',
+                            type: 'success',
+                            buttons: true,
+                        })
+                        .then((buttonClick) => {
+                            if (buttonClick) {
+                                location.reload();
+                            }
+                        });
+                });
+                request.fail(function() {
+                    Swal.fire(
+                        'Erro',
+                        'Algo deu errado ao aprovar esse convite, tente novamente mais tarde.',
+                        'error'
+                    )
+                });
+            } else if (result.dismiss === 'cancel') {
+                Swal.fire(
+                    'Cancelado!',
+                    'Nenhuma alteração realizada.',
+                    'error'
+                )
+            }
+        });
+    });
+
+    $('.btnRefuseInvite').on('click', function() {
+        var inviteId = $(this).data('inviteid');
+        
+        Swal.fire({
+            title: 'Atenção!',
+            text: 'Você está prestes a recusar um convite. Você não terá acesso a algumas informações desse time ao recusar. Deseja continuar?',
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, recusar',
+            cancelButtonText: 'Não, cancelar'
+        }).then((result) => {
+            if (result.value) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                var request = $.ajax({
+                    url: "{{ url('players-invited/no') }}",
+                    method: "POST",
+                    data: {
+                        id: inviteId,
+                    },
+                    dataType: "json"
+                });
+                request.done(function() {
+                    Swal.fire({
+                            title: 'Pronto!',
+                            text: 'Você recusou o convite',
+                            type: 'success',
+                            buttons: true,
+                        })
+                        .then((buttonClick) => {
+                            if (buttonClick) {
+                                location.reload();
+                            }
+                        });
+                });
+                request.fail(function() {
+                    Swal.fire(
+                        'Erro',
+                        'Algo deu errado ao recusar esse convite, tente novamente mais tarde.',
+                        'error'
+                    )
+                });
+            } else if (result.dismiss === 'cancel') {
+                Swal.fire(
+                    'Cancelado!',
+                    'Nenhuma alteração realizada.',
+                    'error'
+                )
+            }
+        });
+    });
+</script>
 @endsection
