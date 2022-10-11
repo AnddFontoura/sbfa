@@ -63,10 +63,9 @@ class TeamController extends Controller
             'city_id' => 'nullable|int',
             'logo' => 'nullable',
             'header' => 'nullable',
-            'playerEmail' => 'nullable|email|max:200'
         ]);
 
-        $data = $request->except(['_token', 'playerEmail']);
+        $data = $request->except('_token');
            
         if ($id) {
             Team::where('id', $id)
