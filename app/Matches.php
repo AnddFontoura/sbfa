@@ -20,12 +20,14 @@ class Matches extends Model
         'visitor_score',
         'home_score',
         'match_datetime',
-        'match_adress',
+        'match_address',
+        /*
         'match_total_cost',
         'match_field_cost',
         'match_referees_cost',
         'extra_costs',
         'extra_costs_description',
+        */
     ];
 
     

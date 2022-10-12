@@ -14,7 +14,7 @@
 
 <div class="row mt-3">
     @if(count($playerInvitedToAnyTeam) > 0)
-    <div class="col-md-6 col-lg-3 col-12">
+    <div class="col-md-6 col-lg-4 col-12">
         @foreach($playerInvitedToAnyTeam as $invite)
             <div class="alert alert-warning mt-3">
                 <p class="text-white"> O time <b>{{ $invite->teamHasPlayer->team->name }}</b> de <b> {{ $invite->teamHasPlayer->team->city->name }}/{{ $invite->teamHasPlayer->team->city->state->short}} </b> convidou você para ser parte do elenco, deseja participar? </p>
@@ -28,7 +28,7 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-4 col-6">
+    <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="small-box bg-success">
             <div class="inner">
                 <h3>53</h3>
@@ -43,7 +43,7 @@
         </div>
     </div>
     
-    <div class="col-lg-4 col-6">
+    <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="small-box bg-info">
             <div class="inner">
                 <h3>53</h3>
@@ -58,7 +58,7 @@
         </div>
     </div>
     
-    <div class="col-lg-4 col-6">
+    <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="small-box bg-warning">
             <div class="inner">
                 <h3>53</h3>
@@ -73,7 +73,7 @@
         </div>
     </div>
 
-    <div class="col-lg-6 col-12">
+    <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="card">
             <div class="card-header"> 
                 <b> Últimos Jogos </b> 
@@ -121,7 +121,7 @@
         </div>
     </div>
 
-    <div class="col-lg-6 col-12">
+    <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="card">
             <div class="card-header"> 
                 <b> Próximos Jogos </b> 

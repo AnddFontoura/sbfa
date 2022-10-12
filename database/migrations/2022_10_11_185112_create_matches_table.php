@@ -23,12 +23,14 @@ class CreateMatchesTable extends Migration
             $table->integer('visitor_score')->nullable(false);
             $table->integer('home_score')->nullable(false);
             $table->dateTime('match_datetime')->nullable(false);
-            $table->text('match_adress', 5000)->nullable(false);
+            $table->text('match_address', 5000)->nullable(false);
+            /*
             $table->float('match_total_cost', 8,2)->nullable(true);
             $table->float('match_field_cost', 8,2)->nullable(true);
             $table->float('match_referees_cost', 8,2)->nullable(true);
             $table->float('extra_costs', 8, 2)->nullable(true);
             $table->text('extra_costs_description', 5000)->nullable(true);
+            */
             $table->timestamps();
             $table->softDeletes();
 

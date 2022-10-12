@@ -91,7 +91,7 @@
             </div>
 
             <div class="card-body">
-                @if(!$lastMatches)
+                @if(count($lastMatches) > 0)
                 <table class="table table-stripped">
                     <thead>
                         <tr>
@@ -99,7 +99,7 @@
                             <th> </th>
                             <th> X </th>
                             <th> </th>
-                            <th> Time Visitante </th>
+                            <th class="text-right"> Time Visitante </th>
                             <th> Opções </th>
                         </tr>
                     </thead>
@@ -111,14 +111,14 @@
                             <td> {{ $match->home_score }}</td>
                             <td> x </td>
                             <td> {{ $match->visitor_score }}</td>
-                            <td> {{ $match->visitorTeam->name ?? $match->visitor_team_name }} </td>
+                            <td class="text-right"> {{ $match->visitorTeam->name ?? $match->visitor_team_name }} </td>
                             <td></td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
                 @else
-                <div class="alert alert-danger"> Nenhum jogo cadastrado, <a href="{{ route('matches.create', $team->id) }}"> clique aqui para cadastrar um </a> </div>
+                    <div class="alert alert-danger"> Nenhum jogo cadastrado, <a href="{{ route('matches.create', $team->id) }}"> clique aqui para cadastrar um </a> </div>
                 @endif
             </div>
         </div>
