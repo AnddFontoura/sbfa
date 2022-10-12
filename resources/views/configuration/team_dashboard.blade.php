@@ -112,7 +112,11 @@
                             <td> x </td>
                             <td> {{ $match->visitor_score }}</td>
                             <td class="text-right"> {{ $match->visitorTeam->name ?? $match->visitor_team_name }} </td>
-                            <td></td>
+                            <td>
+                                <a href="#" class="btn btn-lg btn-secondary" title="Visualizar estatisticas"> <i class="fas fa-eye"></i> </a>
+                                <a href="#" class="btn btn-lg btn-warning" title="Editar Partida"> <i class="fas fa-eye"></i> </a>
+                                <a href="#" class="btn btn-lg btn-primary" title="Editar Estatisticas"> <i class="fas fa-eye"></i> </a>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
