@@ -52,7 +52,7 @@ Route::middleware(['auth'])->group(function() {
         Route::get('form/{teamId}', 'MatchesController@create')->name('matches.create');
         Route::get('form/{teamId}/{matchId}', 'MatchesController@create')->name('matches.edit');
         Route::post('store/{teamId}', 'MatchesController@store')->name('matches.save');
-        Route::post('store/{teamId}/{matchId}', 'MatchesController@store')->name('matches.update');
+        Route::post('store/{teamId}/{matchId}', 'MatchesController@update')->name('matches.update');
         Route::get('show/{matchId}', 'MatchesController@show')->name('matches.view');
     });
 });

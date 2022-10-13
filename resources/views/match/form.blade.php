@@ -51,27 +51,27 @@
                         <div class="col-lg-6 col-md-6 col-sm-12 mt-3">
                             <label for="homeOrVisitorLabel">Seu time é o mandante ou visitante?</label> <br>
                             <div class="custom-control custom-radio ">
-                                <input type="radio" name="homeOrVisitor" value="home" class="custom-control-input" id="customRadioHome" checked> <label for="customRadioHome" class="custom-control-label"> Mandante </label> </input>
+                                <input type="radio" name="homeOrVisitor" value="home" class="custom-control-input" id="customRadioHome" @if($match && $match->homeOrVisitor == 'home') checked @endif> <label for="customRadioHome" class="custom-control-label"> Mandante </label> </input>
                             </div>
 
                             <div class="custom-control custom-radio ">
-                                <input type="radio" name="homeOrVisitor" value="visitor" class="custom-control-input" id="customRadioVisitor"> <label for="customRadioVisitor" class="custom-control-label"> Visitante </label> </input>
+                                <input type="radio" name="homeOrVisitor" value="visitor" class="custom-control-input" id="customRadioVisitor" @if($match && $match->homeOrVisitor == 'visitor') checked @endif> <label for="customRadioVisitor" class="custom-control-label"> Visitante </label> </input>
                             </div>
                         </div>
 
                         <div class="form-group col-lg-6 col-md-3 col-sm-12 mt-3">
                             <label for="matchEnemyName">Nome do adversário</label>
-                            <input type="text" name="enemyTeamName" class="form-control is-warning" id="matchEnemyName" placeholder="Nome do Time Adversario" value="@if($match){{ $match->nickname }}@else{{ old('enemyTeamName') }}@endif" required>
+                            <input type="text" name="enemyTeamName" class="form-control is-warning" id="matchEnemyName" placeholder="Nome do Time Adversario" value="@if($match){{ $match->enemyTeamName }}@else{{ old('enemyTeamName') }}@endif" required>
                         </div>
 
                         <div class="form-group col-lg-6 col-md-6 col-sm-12 mt-3">
                             <label for="myTeamScore">Placar do seu time</label>
-                            <input type="number" name="myTeamScore" class="form-control mb-3" id="myTeamScore" placeholder="Placar do seu time" value="@if($match){{ $match->number }}@else{{ old('myTeamScore') }}@endif">
+                            <input type="number" name="myTeamScore" class="form-control mb-3" id="myTeamScore" placeholder="Placar do seu time" value="@if($match){{ $match->myTeamScore }}@else{{ old('myTeamScore') }}@endif">
                         </div>
 
                         <div class="form-group col-lg-6 col-md-6 col-sm-12 mt-3">
                             <label for="myTeamScore">Placar do time Adversário</label>
-                            <input type="number" name="enemyTeamScore" class="form-control mb-3" id="enemyTeamScore" placeholder="Placar do time adversário" value="@if($match){{ $match->number }}@else{{ old('enemyTeamScore') }}@endif">
+                            <input type="number" name="enemyTeamScore" class="form-control mb-3" id="enemyTeamScore" placeholder="Placar do time adversário" value="@if($match){{ $match->enemyTeamScore }}@else{{ old('enemyTeamScore') }}@endif">
                         </div>
 
                         <div class="col-12">
@@ -93,7 +93,7 @@
 
                         <div class="form-group col-lg-6 col-md-6 col-sm-12 mt-3">
                             <label for="matchAddress">Endereço do Confronto</label>
-                            <textarea style="height: 125px" name="match_address" class="form-control" id="matchAddress" value="@if($match){{ $match->match_address }}@else{{ old('match_address') }}@endif"> </textarea>
+                            <textarea style="height: 125px" name="match_address" class="form-control" id="matchAddress">@if($match){{ $match->match_address }}@else{{ old('match_address') }}@endif</textarea>
                         </div>
                     </div>
                 </div>

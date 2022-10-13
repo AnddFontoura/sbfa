@@ -25,7 +25,7 @@
     <div class="col-md-8 col-12 text-center mt-3">
         <div class="btn-group">
             <a href="{{ route('team_has_player.create', $team->id) }}" class="btn btn-success">Incluir jogador</a>
-            <a href="#" class="btn btn-primary">Incluir Partida</a>
+            <a href="{{ route('matches.create', $team->id) }}" class="btn btn-primary">Incluir Partida</a>
             <a href="#" class="btn btn-warning">Incluir Fluxo de Caixa</a>
         </div>
     </div>
@@ -113,16 +113,20 @@
                             <td> {{ $match->visitor_score }}</td>
                             <td class="text-right"> {{ $match->visitorTeam->name ?? $match->visitor_team_name }} </td>
                             <td>
-                                <a href="#" class="btn btn-lg btn-secondary" title="Visualizar estatisticas"> <i class="fas fa-eye"></i> </a>
-                                <a href="#" class="btn btn-lg btn-warning" title="Editar Partida"> <i class="fas fa-eye"></i> </a>
-                                <a href="#" class="btn btn-lg btn-primary" title="Editar Estatisticas"> <i class="fas fa-eye"></i> </a>
+
+                                <div class="btn-group">
+                                    <a href="{{ route('matches.view', $match->id) }}" class="btn btn-lg btn-secondary" title="Visualizar estatisticas"> <i class="fas fa-eye"></i> </a>
+                                    <a href="{{ route('matches.edit', [$team->id, $match->id]) }}" class="btn btn-lg btn-warning" title="Editar Partida"> <i class="fas fa-edit"></i> </a>
+                                    <a href="#" class="btn btn-lg btn-primary" title="Editar Estatisticas"> <i class="fas fa-chart-bar"></i> </a>
+                                    <div class="btn btn-lg btn-danger btnDeleteMatch" data-matchid="{{ $match->id }}" title="Deletar"> <i class="fas fa-minus-circle"></i> </div>
+                                </div>
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
                 @else
-                    <div class="alert alert-danger"> Nenhum jogo cadastrado, <a href="{{ route('matches.create', $team->id) }}"> clique aqui para cadastrar um </a> </div>
+                <div class="alert alert-danger"> Nenhum jogo cadastrado, <a href="{{ route('matches.create', $team->id) }}"> clique aqui para cadastrar um </a> </div>
                 @endif
             </div>
         </div>
