@@ -54,5 +54,6 @@ Route::middleware(['auth'])->group(function() {
         Route::post('store/{teamId}', 'MatchesController@store')->name('matches.save');
         Route::post('store/{teamId}/{matchId}', 'MatchesController@update')->name('matches.update');
         Route::get('show/{matchId}', 'MatchesController@show')->name('matches.view');
+        Route::get('statistics/{teamId}/{matchId}', 'MatchesController@statistics')->name('matches.statistics');
     });
 });

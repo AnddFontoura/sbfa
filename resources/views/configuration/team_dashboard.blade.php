@@ -117,7 +117,7 @@
                                 <div class="btn-group">
                                     <a href="{{ route('matches.view', $match->id) }}" class="btn btn-lg btn-secondary" title="Visualizar estatisticas"> <i class="fas fa-eye"></i> </a>
                                     <a href="{{ route('matches.edit', [$team->id, $match->id]) }}" class="btn btn-lg btn-warning" title="Editar Partida"> <i class="fas fa-edit"></i> </a>
-                                    <a href="#" class="btn btn-lg btn-primary" title="Editar Estatisticas"> <i class="fas fa-chart-bar"></i> </a>
+                                    <a href="{{ route('matches.statistics', [$team->id, $match->id] ) }}" class="btn btn-lg btn-primary" title="Editar Estatisticas"> <i class="fas fa-chart-bar"></i> </a>
                                     <div class="btn btn-lg btn-danger btnDeleteMatch" data-matchid="{{ $match->id }}" title="Deletar"> <i class="fas fa-minus-circle"></i> </div>
                                 </div>
                             </td>

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\City;
 use App\Matches;
+use App\Statistic;
 use App\Team;
+use App\TeamHasPlayers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -20,11 +22,19 @@ class MatchesController extends Controller
         //
     }
 
-    public function teamMatches()
+    public function statistics(int $teamId, int $matchId)
     {
-        Matches::where('home_team_id', $teamId)
-            ->orWhere('visitor_team_id', $teamId)
-            ->get();
+        $match = Matches::where('id', $matchId)->first();
+        $team = Team::where('id', $teamId)->first();
+        $teamHasPlayers = TeamHasPlayers::where('team_id', $teamId)->get();
+        $statistics = Statistic::get();
+
+        //Fazer uma lista com todos os jogadores, as estatisticas
+        // e possibilitar salvamento posterior, mesmo deslogado
+        // utilizando localstorage
+        // precisa de laço p/campos salvos
+
+        return view('match.statistics', compact('team', 'match', 'teamHasPlayers', 'statistics'));
     }
 
     /**
@@ -182,9 +192,11 @@ class MatchesController extends Controller
      * @param  \App\Match  $match
      * @return \Illuminate\Http\Response
      */
-    public function show(Matches $match)
+    public function show(int $matchId)
     {
-        //
+        $match = Matches::where('id', $matchId)->first();
+
+        return view('match.view', compact('match'));
     }
 
     /**
