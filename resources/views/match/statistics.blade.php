@@ -26,45 +26,59 @@
 
 <div class="row mt-3">
     <div class="col-12">
-        <form action="@if($match) {{ route('matches.update', [$team->id, $match->id]) }} @else {{ route('matches.save', $team->id) }} @endif" method='POST'>
-            @if(count($teamHasPlayers) > 0)
 
-            <table class="table table-stripped">
-                <tr>
-                    <th style="writing-mode: vertical-rl; font-size: 10px;"> Jogador </th>
-                    <th style="writing-mode: vertical-rl; font-size: 10px;"> Nº Camisa </th>
-                    <th style="writing-mode: vertical-rl; font-size: 10px;"> Pago </th>
-                    @foreach($statistics as $data)
-                    <th>
-                        <p style="writing-mode: vertical-rl; font-size: 10px;"> {{ $data->name }} </p>
-                    </th>
-                    @endforeach
-                </tr>
+        @if(count($teamHasPlayers) == 0)
 
-                @foreach($teamHasPlayers as $player)
-                <tr>
-                    <td> {{ $player->name }} </td>
-                    <th>
-                        <input type="number" class="w-100"> </input> </p>
-                    </th>
-                    <th>
-                        <input type="number" class="w-100"> </input> </p>
-                    </th>
-                    @foreach($statistics as $data)
-                    <th>
-                        <input type="number" class="w-100"> </input> </p>
-                    </th>
-                    @endforeach
-                </tr>
-                @endforeach
+        <div class="alert alert-danger">
+            Não existem jogadores cadastrados, você deve ter algum para registrar estatisticas
+        </div>
+        @else
+        <form action="@if($match) {{ route('statistics.update', [$team->id, $match->id]) }} @else {{ route('statistics.save', [$team->id, $match->id]) }} @endif" method='POST'>
+            <div class="card">
+                <div class="card-header">
+                    Jogadores a serem avaliados
+                </div>
 
-            </table>
+                <div class="card-body">
+                    @csrf
 
-            @else
-            <div class="alert alert-danger">
-                Não existem jogadores cadastrados, você deve ter algum para registrar estatisticas
-            </div>
-            @endif
+                    <table class="table table-stripped">
+                        <tr>
+                            <th style="writing-mode: vertical-rl; font-size: 10px;"> Jogador </th>
+                            <th style="writing-mode: vertical-rl; font-size: 10px;"> Nº Camisa </th>
+                            <th style="writing-mode: vertical-rl; font-size: 10px;"> Pago </th>
+                            @foreach($statistics as $data)
+                            <th>
+                                <p style="writing-mode: vertical-rl; font-size: 10px;"> {{ $data->name }} </p>
+                            </th>
+                            @endforeach
+                        </tr>
+
+                        @foreach($teamHasPlayers as $player)
+                        <tr>
+                            <td> {{ $player->name }} </td>
+                            <th>
+                                <input type="number" class="w-100"> </input> </p>
+                            </th>
+                            <th>
+                                <input type="number" class="w-100"> </input> </p>
+                            </th>
+                            @foreach($statistics as $data)
+                            <th>
+                                <input type="number" class="w-100" name="playerStatistic[{{ $player->id }}][{{ $data->id }}]" value="0"> </input> </p>
+                            </th>
+                            @endforeach
+                        </tr>
+                        @endforeach
+
+                    </table>
+
+                </div>
+
+                <div class="card-footer">
+                    <input type="submit" value="Cadastrar Estatisticas"></input>
+                </div>
+                @endif
         </form>
     </div>
 </div>
