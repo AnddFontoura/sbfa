@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PlayerInvited extends Model
@@ -15,8 +16,8 @@ class PlayerInvited extends Model
         'team_has_player_id',
         'email',
     ];
-    
-    public function teamHasPlayer()
+
+    public function teamHasPlayer(): BelongsTo
     {
         return $this->belongsTo(TeamHasPlayers::class, 'team_has_player_id', 'id');
     }

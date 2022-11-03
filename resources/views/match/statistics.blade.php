@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1> Jogadores do time </h1>
+                <h1> Estatisticas do time </h1>
             </div>
         </div>
     </div>
@@ -27,44 +27,48 @@
 <div class="row mt-3">
     <div class="col-12">
         <form action="@if($match) {{ route('matches.update', [$team->id, $match->id]) }} @else {{ route('matches.save', $team->id) }} @endif" method='POST'>
-            @if(count($teamHasPlayers) > 0)
+            <div class="card">
+                <div class="card-header">
+                    <h1> Organizar Estatisticas </h1>
+                </div>
 
-            <table class="table table-stripped">
-                <tr>
-                    <th style="writing-mode: vertical-rl; font-size: 10px;"> Jogador </th>
-                    <th style="writing-mode: vertical-rl; font-size: 10px;"> Nº Camisa </th>
-                    <th style="writing-mode: vertical-rl; font-size: 10px;"> Pago </th>
-                    @foreach($statistics as $data)
-                    <th>
-                        <p style="writing-mode: vertical-rl; font-size: 10px;"> {{ $data->name }} </p>
-                    </th>
-                    @endforeach
-                </tr>
+                <div class="card-body">
+                    @if(count($teamHasPlayers) > 0)
 
-                @foreach($teamHasPlayers as $player)
-                <tr>
-                    <td> {{ $player->name }} </td>
-                    <th>
-                        <input type="number" class="w-100"> </input> </p>
-                    </th>
-                    <th>
-                        <input type="number" class="w-100"> </input> </p>
-                    </th>
-                    @foreach($statistics as $data)
-                    <th>
-                        <input type="number" class="w-100"> </input> </p>
-                    </th>
-                    @endforeach
-                </tr>
-                @endforeach
+                    <table class="table table-bordered">
+                        <tr>
+                            <th class="table-vertical-text"> Jogador </th>
+                            @foreach($statistics as $data)
+                            <th>
+                                <p class="table-vertical-text"> {{ $data->name }} </p>
+                            </th>
+                            @endforeach
+                        </tr>
 
-            </table>
+                        @foreach($teamHasPlayers as $player)
+                        <tr>
+                            <td> {{ $player->name }} </td>
+                            @foreach($statistics as $data)
+                            <th>
+                                <input type="number" name="player[{{ $player->id }}][{{ $data->id }}]"class="w-100"> </input> </p>
+                            </th>
+                            @endforeach
+                        </tr>
+                        @endforeach
 
-            @else
-            <div class="alert alert-danger">
-                Não existem jogadores cadastrados, você deve ter algum para registrar estatisticas
+                    </table>
+
+                    @else
+                    <div class="alert alert-danger">
+                        Não existem jogadores cadastrados, você deve ter algum para registrar estatisticas
+                    </div>
+                    @endif
+                </div>
+
+                <div class="card-footer">
+                    <input type="submit" value="Cadastrar estatistícas" class="btn btn-success"></input>
+                </div>
             </div>
-            @endif
         </form>
     </div>
 </div>

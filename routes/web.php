@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function() {
     Route::prefix('configuration')->group(function() {
         Route::get('team/{teamId}', 'ConfigurationController@team')->name('configuration.team');
     });
-    
+
     Route::prefix('matches')->group(function() {
         //Route::match(['get', 'post'], '/', 'MatchesController@index')->name('teams');
         //Route::match(['get', 'post'], 'my-teams', 'MatchesController@myTeams');
@@ -55,5 +55,7 @@ Route::middleware(['auth'])->group(function() {
         Route::post('store/{teamId}/{matchId}', 'MatchesController@update')->name('matches.update');
         Route::get('show/{matchId}', 'MatchesController@show')->name('matches.view');
         Route::get('statistics/{teamId}/{matchId}', 'MatchesController@statistics')->name('matches.statistics');
+        Route::get('players-at-match/{teamId}/{matchId}', 'MatchHasPlayerController@matchPlayers')->name('matches.player-at');
+        Route::post('players-at-match/save/{teamId}/{matchId}', 'MatchHasPlayerController@store')->name('matches.player-at.save');
     });
 });
