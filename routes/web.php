@@ -57,5 +57,7 @@ Route::middleware(['auth'])->group(function() {
         Route::get('statistics/{teamId}/{matchId}', 'MatchesController@statistics')->name('matches.statistics');
         Route::get('players-at-match/{teamId}/{matchId}', 'MatchHasPlayerController@matchPlayers')->name('matches.player-at');
         Route::post('players-at-match/save/{teamId}/{matchId}', 'MatchHasPlayerController@store')->name('matches.player-at.save');
+        Route::get('cost/form/{teamId}/{matchId}', 'MatchCostController@create')->name('matches.cost.create');
+        Route::get('cost/store/{teamId}/{matchId}', 'MatchCostController@store')->name('matches.cost.save');
     });
 });

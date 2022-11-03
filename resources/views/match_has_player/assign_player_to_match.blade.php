@@ -52,8 +52,8 @@
                             @php
                                 $positionId = null;
 
-                                isset($player->matchHasPlayer->position_id)
-                                ? $positionId = $player->matchHasPlayer->position_id
+                                isset($player->matchHasPlayer->game_position_id)
+                                ? $positionId = $player->matchHasPlayer->game_position_id
                                 : $positionId = $player->position_id;
                             @endphp
                             <td>
