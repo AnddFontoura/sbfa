@@ -21,10 +21,10 @@ class CreateMatchesCostsTable extends Migration
             $table->float('match_field_cost', 8,2)->nullable(true);
             $table->float('match_referees_cost', 8,2)->nullable(true);
             $table->float('extra_costs', 8, 2)->nullable(true);
-            $table->text('extra_costs_description', 5000)->nullable(true);
+            $table->text('extra_costs_description', 10000)->nullable(true);
             $table->timestamps();
             $table->softDeletes();
-            
+
             $table->foreign('team_id')->references('id')->on('teams');
             $table->foreign('match_id')->references('id')->on('matches');
         });

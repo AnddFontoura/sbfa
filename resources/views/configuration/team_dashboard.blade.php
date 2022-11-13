@@ -110,8 +110,8 @@
                                         <div class="btn-group">
                                             <a href="{{ route('matches.view', $match->id) }}" class="btn btn-lg btn-secondary" title="Visualizar dados gerais da partida"> <i class="fas fa-eye"></i> </a>
                                             <a href="{{ route('matches.edit', [$team->id, $match->id]) }}" class="btn btn-lg btn-warning" title="Editar Informações da Partida"> <i class="fas fa-edit"></i> </a>
-                                            <a href="{{ route('matches.player-at', [$team->id, $match->id]) }}" class="btn btn-lg btn-success" title="Vincular Jogadores"> <i class="fas fa-users"></i> </a>
-                                            <a href="{{ route('matches.statistics', [$team->id, $match->id]) }}" class="btn btn-lg btn-primary" title="Editar Estatisticas dos jogadores"> <i class="fas fa-chart-bar"></i> </a>
+                                            <a href="{{ route('matches.player-at.create', [$team->id, $match->id]) }}" class="btn btn-lg btn-success" title="Vincular Jogadores"> <i class="fas fa-users"></i> </a>
+                                            <a href="{{ route('matches.statistics.create', [$team->id, $match->id]) }}" class="btn btn-lg btn-primary" title="Editar Estatisticas dos jogadores"> <i class="fas fa-chart-bar"></i> </a>
                                             <a href="{{ route('matches.cost.create', [$team->id, $match->id]) }}" class="btn btn-lg bg-indigo text-white" title="Editar financeiro da partida"> <i class="fas fa-coins"></i> </a>
                                             <div class="btn btn-lg btn-danger btnDeleteMatch" data-matchid="{{ $match->id }}" title="Deletar partida"> <i class="fas fa-minus-circle"></i> </div>
                                         </div>

@@ -17,7 +17,7 @@ class MatchHasPlayerController extends Controller
      * @param int $matchId
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function matchPlayers(int $teamId, int $matchId)
+    public function create(int $teamId, int $matchId)
     {
         $team = Team::where('id', $teamId)->first();
         $match = Matches::where('id', $matchId)->first();
