@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <!-- Fancybox -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css">
+    <!-- Custom style -->
+    <link rel="stylesheet" href="{{ asset('css/custom-adminlte.css') }}">
 </head>
 
 <body class="hold-transition sidebar-mini">

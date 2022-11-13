@@ -45,16 +45,19 @@ Route::middleware(['auth'])->group(function() {
     Route::prefix('configuration')->group(function() {
         Route::get('team/{teamId}', 'ConfigurationController@team')->name('configuration.team');
     });
-    
+
     Route::prefix('matches')->group(function() {
-        //Route::match(['get', 'post'], '/', 'MatchesController@index')->name('teams');
-        //Route::match(['get', 'post'], 'my-teams', 'MatchesController@myTeams');
         Route::get('form/{teamId}', 'MatchesController@create')->name('matches.create');
         Route::get('form/{teamId}/{matchId}', 'MatchesController@create')->name('matches.edit');
         Route::post('store/{teamId}', 'MatchesController@store')->name('matches.save');
         Route::post('store/{teamId}/{matchId}', 'MatchesController@update')->name('matches.update');
         Route::get('show/{matchId}', 'MatchesController@show')->name('matches.view');
-        Route::get('statistics/{teamId}/{matchId}', 'MatchesController@statistics')->name('matches.statistics');
+        Route::get('statistics/{teamId}/{matchId}', 'PlayerStatisticInMatchController@create')->name('matches.statistics.create');
+        Route::post('statistics/{teamId}/{matchId}', 'PlayerStatisticInMatchController@store')->name('matches.statistics.save');
+        Route::get('players-at-match/{teamId}/{matchId}', 'MatchHasPlayerController@create')->name('matches.player-at.create');
+        Route::post('players-at-match/save/{teamId}/{matchId}', 'MatchHasPlayerController@store')->name('matches.player-at.save');
+        Route::get('cost/form/{teamId}/{matchId}', 'MatchCostController@create')->name('matches.cost.create');
+        Route::post('cost/store/{teamId}/{matchId}', 'MatchCostController@store')->name('matches.cost.save');
     });
     
     Route::prefix('statistics')->group(function() {

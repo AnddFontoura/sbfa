@@ -3,17 +3,21 @@
 namespace App\Http\Services;
 
 use App\Matches;
-use App\PlayerInvited;
-use App\Team;
-use Exception;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class MatchService {
-    public function getMatchOfTeam(int $teamId, int $limit = 0)
+
+    /**
+     * @param int $teamId
+     * @param int $limit
+     * @return Model
+     */
+    public function getMatchOfTeam(int $teamId, int $limit = 0): Builder
     {
         $matches = Matches::where('home_team_id', $teamId)
             ->orWhere('visitor_team_id', $teamId);
-            
+
         if ($limit > 0) {
             $matches = $matches->limit($limit);
         }

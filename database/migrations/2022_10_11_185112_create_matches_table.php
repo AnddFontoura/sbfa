@@ -15,6 +15,7 @@ class CreateMatchesTable extends Migration
     {
         Schema::create('matches', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('created_by_team_id')->nullable(false);
             $table->unsignedBigInteger('city_id')->nullable(false);
             $table->unsignedBigInteger('home_team_id')->nullable(true);
             $table->unsignedBigInteger('visitor_team_id')->nullable(true);
@@ -22,18 +23,14 @@ class CreateMatchesTable extends Migration
             $table->string('home_team_name', 200)->nullable(true);
             $table->integer('visitor_score')->nullable(false);
             $table->integer('home_score')->nullable(false);
+            $table->boolean('show_home_profile')->default(1);
+            $table->boolean('show_visitor_profile')->default(1);
             $table->dateTime('match_datetime')->nullable(false);
             $table->text('match_address', 5000)->nullable(false);
-            /*
-            $table->float('match_total_cost', 8,2)->nullable(true);
-            $table->float('match_field_cost', 8,2)->nullable(true);
-            $table->float('match_referees_cost', 8,2)->nullable(true);
-            $table->float('extra_costs', 8, 2)->nullable(true);
-            $table->text('extra_costs_description', 5000)->nullable(true);
-            */
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreign('created_by_team_id')->references('id')->on('teams');
             $table->foreign('city_id')->references('id')->on('cities');
             $table->foreign('home_team_id')->references('id')->on('teams');
             $table->foreign('visitor_team_id')->references('id')->on('teams');
@@ -47,6 +44,6 @@ class CreateMatchesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('games');
+        Schema::dropIfExists('matches');
     }
 }

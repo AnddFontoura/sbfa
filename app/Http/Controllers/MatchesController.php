@@ -119,7 +119,8 @@ class MatchesController extends Controller
             'visitor_score' => $visitorTeamScore,
             'city_id' => $data['city_id'] ?? null,
             'match_address' => $data['match_address'] ?? null,
-            'match_datetime' => $data['match_datetime'] ?? null
+            'match_datetime' => $data['match_datetime'] ?? null,
+            'created_by_team_id' => $teamId
         ];
 
         $match = Matches::create($createData);

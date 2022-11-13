@@ -13,6 +13,7 @@ class Matches extends Model
     
     protected $fillable = [
         'city_id',
+        'created_by_team_id',
         'home_team_id',
         'visitor_team_id',
         'visitor_team_name',
@@ -21,6 +22,8 @@ class Matches extends Model
         'home_score',
         'match_datetime',
         'match_address',
+        'show_home_profile',
+        'show_visitor_profile',
         /*
         'match_total_cost',
         'match_field_cost',
