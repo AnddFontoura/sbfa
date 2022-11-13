@@ -30,9 +30,17 @@ class PlayerStatisticInMatchController extends Controller
         $statistics = Statistic::get();
 
         foreach($matchHasPlayer as $player) {
-            $player->statistics = PlayerStatisticInMatch::where('team_has_player_id', $player->team_has_player_id)
+            $playerStatistics = PlayerStatisticInMatch::where('team_has_player_id', $player->team_has_player_id)
                 ->where('match_id', $matchId)
                 ->get();
+
+            $playerStatisticArray = [];
+
+            foreach($playerStatistics as $playerStatistic) {
+                $playerStatisticArray[$playerStatistic->statistic_id] = $playerStatistic->value;
+            }
+
+            $player->statistics = $playerStatisticArray;
         }
 
         return view('player_statistic_in_match.form', compact('team', 'match', 'statistics', 'matchHasPlayer'));
@@ -44,9 +52,33 @@ class PlayerStatisticInMatchController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, int $teamId, int $matchId)
     {
-        //
+        $this->validate($request, [
+            'player' => 'required|array'
+        ]);
+
+        $data = $request->except('_token');
+
+        foreach ($data as $playerId => $playerInfo) {
+            foreach($playerInfo as $statisticId => $statisticData) {
+                $playerStatisticInMatch = PlayerStatisticInMatch::where('team_has_player_id', $playerId)
+                    ->where('statistic_id', $statisticId)
+                    ->first();
+
+                if($playerStatisticInMatch) {
+                    $playerStatisticInMatch->value = $statisticData;
+                    $playerStatisticInMatch->save();
+                } else {
+                    PlayerStatisticInMatch::create([
+                        'team_has_player_id' => $playerId,
+                        'match_id' => $matchId,
+                        'statistic_id' => $statisticId,
+                        'value' => $statisticData
+                    ]);
+                }
+            }
+        }
     }
 
     /**

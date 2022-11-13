@@ -26,7 +26,7 @@
 
     <div class="row mt-3">
         <div class="col-12">
-            <form action="@if($match) {{ route('matches.update', [$team->id, $match->id]) }} @else {{ route('matches.save', $team->id) }} @endif" method='POST'>
+            <form action="{{ route('matches.statistic.save', [$team->id, $match->id]) }}" method='POST'>
                 @csrf
                 <div class="card">
                     <div class="card-header">
@@ -53,9 +53,9 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 @foreach($statistics as $data)
-                                                    <div class="form-group col-md-2 col-lg-2 col-sm-12">
+                                                    <div class="form-group col-md-2 col-lg-2 col-sm-1 mt-lg-3">
                                                         <span> {{ $data->name }} </span>
-                                                        <input class="form-control" type="number" name="player[{{ $player->id }}][{{ $data->id }}]"class="w-100">
+                                                        <input class="form-control w-100" type="number" name="player[{{ $player->id }}][{{ $data->id }}]" value="@if(isset($player->statistics[$data->id])){{ $player->statistics[$data->id] }}@else{{ 0 }}@endif">
                                                     </div>
                                                 @endforeach
                                             </div>
