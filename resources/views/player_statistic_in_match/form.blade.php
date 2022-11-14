@@ -26,7 +26,7 @@
 
     <div class="row mt-3">
         <div class="col-12">
-            <form action="{{ route('matches.statistic.save', [$team->id, $match->id]) }}" method='POST'>
+            <form action="{{ route('matches.statistics.save', [$team->id, $match->id]) }}" method='POST'>
                 @csrf
                 <div class="card">
                     <div class="card-header">

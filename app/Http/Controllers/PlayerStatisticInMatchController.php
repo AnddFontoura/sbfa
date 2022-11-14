@@ -47,10 +47,7 @@ class PlayerStatisticInMatchController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request, int $teamId, int $matchId)
     {
@@ -60,7 +57,7 @@ class PlayerStatisticInMatchController extends Controller
 
         $data = $request->except('_token');
 
-        foreach ($data as $playerId => $playerInfo) {
+        foreach ($data['player'] as $playerId => $playerInfo) {
             foreach($playerInfo as $statisticId => $statisticData) {
                 $playerStatisticInMatch = PlayerStatisticInMatch::where('team_has_player_id', $playerId)
                     ->where('statistic_id', $statisticId)
@@ -79,6 +76,8 @@ class PlayerStatisticInMatchController extends Controller
                 }
             }
         }
+
+        return redirect('matches/statistics/' .$teamId . '/' . $matchId);
     }
 
     /**
