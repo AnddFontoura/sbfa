@@ -12,18 +12,6 @@
     </div>
 </section>
 
-<div class="row mt-3 text-left">
-    <div class="col-md-1 col-12 mt-3 text-center">
-        @if($team->logo)
-        <img src="{{ asset('storage/' . $team->logo) }}" class="img w-50"></img>
-        @endif
-    </div>
-    <div class="col-md-10 col-12 mt-3">
-        <h5> {{ $team->name}} </h5>
-        <p> {{$team->city->name}} ({{$team->city->state->name}}/{{ $team->city->state->short }})
-    </div>
-</div>
-
 <div class="row mt-3">
     <div class="col-12">
         <form action="@if($player) {{ route('team_has_player.update', [$team->id, $player->id]) }} @else {{ route('team_has_player.save', $team->id) }} @endif" method='POST'>

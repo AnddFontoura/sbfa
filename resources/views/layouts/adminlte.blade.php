@@ -109,7 +109,7 @@
                  alt="AdminLTE Logo"
                  class="brand-image img-circle elevation-3"
                  style="opacity: .8">
-            <span class="brand-text font-weight-light">AdminLTE 3</span>
+            <span class="brand-text font-weight-light">SBFA</span>
         </a>
 
         <!-- Sidebar -->
@@ -181,6 +181,10 @@
 
         <!-- Main content -->
         <section class="content">
+            @includewhen(isset($team), 'layouts.team_header')
+
+            @includewhen(isset($match), 'layouts.match_header')
+
             @yield('content')
         </section>
         <!-- /.content -->

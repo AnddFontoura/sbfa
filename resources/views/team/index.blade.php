@@ -22,21 +22,21 @@
     </div>
     @else
     <div class="row mt-3 text-left">
-        @foreach($teams as $team)
+        @foreach($teams as $teamInfo)
         <div class="col-md-3 col-lg-2 col-sm-12 d-flex">
             <div class="card shadow  w-100">
                 <div class="card-body text-center flex-fill">
-                    <a href="{{ route('teams.view', $team->id) }}">
-                        <h5> {{ $team->name }} </h5>
-                        @if($team->logo)
-                            <img src="{{ asset('storage/' . $team->logo) }}" class="img w-100"></img>
+                    <a href="{{ route('teams.view', $teamInfo->id) }}">
+                        <h5> {{ $teamInfo->name }} </h5>
+                        @if($teamInfo->logo)
+                            <img src="{{ asset('storage/' . $teamInfo->logo) }}" class="img w-100"></img>
                         @endif
                     </a>
                 </div>
 
-                @if($team->owner_id == Auth::id())
+                @if($teamInfo->owner_id == Auth::id())
                 <div class="card-footer text-center bg-secondary">
-                    <a href="{{ route('configuration.team', $team->id) }}" title="Configurações" class="btn btn-lg btn-warning"> <i class="fas fa-cogs"></i> </a>
+                    <a href="{{ route('configuration.team', $teamInfo->id) }}" title="Configurações" class="btn btn-lg btn-warning"> <i class="fas fa-cogs"></i> </a>
                 </div>
                 @endif
             </div>

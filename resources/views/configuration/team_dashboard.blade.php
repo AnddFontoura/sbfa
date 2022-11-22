@@ -13,15 +13,6 @@
 </section>
 
 <div class="row mt-3 text-left">
-    <div class="col-md-2 col-12 mt-3 text-center">
-        @if($team->logo)
-        <img src="{{ asset('storage/' . $team->logo) }}" class="img w-50"></img>
-        @endif
-    </div>
-    <div class="col-md-4 col-12 mt-3">
-        <h1> {{ $team->name}} </h1>
-        <h5> {{$team->city->name}} ({{$team->city->state->name}}/{{ $team->city->state->short }}) </h5>
-    </div>
     <div class="col-md-6 col-12 text-center mt-3">
         <div class="card  bg-danger text-center">
             <div class="card-header">
@@ -98,22 +89,22 @@
                             </thead>
 
                             <tbody>
-                                @foreach($lastMatches as $match)
+                                @foreach($lastMatches as $matchInfo)
                                 <tr>
-                                    <td> {{ $match->homeTeam->name ?? $match->home_team_name }}</td>
-                                    <td> {{ $match->home_score }}</td>
+                                    <td> {{ $matchInfo->homeTeam->name ?? $matchInfo->home_team_name }}</td>
+                                    <td> {{ $matchInfo->home_score }}</td>
                                     <td> x </td>
-                                    <td> {{ $match->visitor_score }}</td>
-                                    <td> {{ $match->visitorTeam->name ?? $match->visitor_team_name }} </td>
+                                    <td> {{ $matchInfo->visitor_score }}</td>
+                                    <td> {{ $matchInfo->visitorTeam->name ?? $matchInfo->visitor_team_name }} </td>
                                     <td class="text-right">
 
                                         <div class="btn-group">
-                                            <a href="{{ route('matches.view', $match->id) }}" class="btn btn-lg btn-secondary" title="Visualizar dados gerais da partida"> <i class="fas fa-eye"></i> </a>
-                                            <a href="{{ route('matches.edit', [$team->id, $match->id]) }}" class="btn btn-lg btn-warning" title="Editar Informações da Partida"> <i class="fas fa-edit"></i> </a>
-                                            <a href="{{ route('matches.player-at.create', [$team->id, $match->id]) }}" class="btn btn-lg btn-success" title="Vincular Jogadores"> <i class="fas fa-users"></i> </a>
-                                            <a href="{{ route('matches.statistics.create', [$team->id, $match->id]) }}" class="btn btn-lg btn-primary" title="Editar Estatisticas dos jogadores"> <i class="fas fa-chart-bar"></i> </a>
-                                            <a href="{{ route('matches.cost.create', [$team->id, $match->id]) }}" class="btn btn-lg bg-indigo text-white" title="Editar financeiro da partida"> <i class="fas fa-coins"></i> </a>
-                                            <div class="btn btn-lg btn-danger btnDeleteMatch" data-matchid="{{ $match->id }}" title="Deletar partida"> <i class="fas fa-minus-circle"></i> </div>
+                                            <a href="{{ route('matches.view', $matchInfo->id) }}" class="btn btn-lg btn-secondary" title="Visualizar dados gerais da partida"> <i class="fas fa-eye"></i> </a>
+                                            <a href="{{ route('matches.edit', [$team->id, $matchInfo->id]) }}" class="btn btn-lg btn-warning" title="Editar Informações da Partida"> <i class="fas fa-edit"></i> </a>
+                                            <a href="{{ route('matches.player-at.create', [$team->id, $matchInfo->id]) }}" class="btn btn-lg btn-success" title="Vincular Jogadores"> <i class="fas fa-users"></i> </a>
+                                            <a href="{{ route('matches.statistics.create', [$team->id, $matchInfo->id]) }}" class="btn btn-lg btn-primary" title="Editar Estatisticas dos jogadores"> <i class="fas fa-chart-bar"></i> </a>
+                                            <a href="{{ route('matches.cost.create', [$team->id, $matchInfo->id]) }}" class="btn btn-lg bg-indigo text-white" title="Editar financeiro da partida"> <i class="fas fa-coins"></i> </a>
+                                            <div class="btn btn-lg btn-danger btnDeleteMatch" data-matchid="{{ $matchInfo->id }}" title="Deletar partida"> <i class="fas fa-minus-circle"></i> </div>
                                         </div>
                                     </td>
                                 </tr>

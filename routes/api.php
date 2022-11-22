@@ -17,6 +17,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+/**
+ * TODO: Aplicar o auth:api para todo request.
+ * 
+ * https://laravel.com/docs/5.8/api-authentication
+ */
 Route::prefix('finances')->group(function () {
     Route::get('team-finances', 'Api\TeamFinancesApiController@countTeamFinances');
 });
