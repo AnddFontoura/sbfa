@@ -31,16 +31,20 @@ class MatchService {
 
     public function getCashSpentFromMatches(int $teamId)
     {
-        return MatchCost::sum('match_total_cost')
-            ->where('team_id', $teamId)
-            ->first();
+        return MatchCost::where('team_id', $teamId)
+            ->sum('match_total_cost');
     }
 
     public function getCashEarnedFromPlayers(int $teamId)
     {
-        return MatchHasPlayer::sum('match_has_player.payed')
-            ->join('match', 'match.id', '=', 'match_has_player.match_id')
-            ->where('match.team_id', $teamId)
-            ->first();
+        $asVisitor = MatchHasPlayer::join('matches', 'matches.visitor_team_id', '=', 'matches_has_players.match_id')
+        ->where('matches.visitor_team_id', $teamId)
+        ->sum('matches_has_players.payed');
+
+        $asHome = MatchHasPlayer::join('matches', 'matches.home_team_id', '=', 'matches_has_players.match_id')
+        ->where('matches.home_team_id', $teamId)
+        ->sum('matches_has_players.payed');
+        
+        return $asHome + $asVisitor;
     }
 }

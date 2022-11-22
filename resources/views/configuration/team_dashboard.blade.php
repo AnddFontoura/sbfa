@@ -29,7 +29,7 @@
             </div>
 
             <div class="card-body">
-                <h1> R$ 0,00 </h1>
+                <h1 id='financesField'> R$ 0,00 </h1>
             </div>
         </div>
     </div>
@@ -134,6 +134,10 @@
 
     @section('page_js')
     <script>
+        $(document).ready(function() {
+            getFinances({{ $team->id }}, "{{ config('app.url') }}")
+        });
+
         $('.btnInvitePlayer').on('click', function() {
             var playerId = $(this).data('playerid');
 
