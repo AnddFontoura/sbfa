@@ -9,8 +9,14 @@ use App\User;
 use Illuminate\Support\Facades\Mail;
 
 class PlayerInvitedService {
-    public function registerPlayerInvitation(string $email, int $teamHasPlayerId) {
-        
+
+    /**
+     * @param string $email
+     * @param int $teamHasPlayerId
+     * @return void
+     */
+    public function registerPlayerInvitation(string $email, int $teamHasPlayerId)
+    {
         $alreadyAtTeam = PlayerInvited::where('email', $email)
             ->where('team_has_player_id', $teamHasPlayerId)
             ->first();

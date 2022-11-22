@@ -29,7 +29,7 @@ class TeamHasPlayers extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
-    
+
     public function team()
     {
         return $this->belongsTo(Team::class, 'team_id', 'id');
@@ -39,4 +39,5 @@ class TeamHasPlayers extends Model
     {
         return $this->belongsTo(GamePosition::class, 'position_id', 'id');
     }
+
 }

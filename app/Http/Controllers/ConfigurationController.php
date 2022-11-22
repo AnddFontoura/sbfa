@@ -17,7 +17,8 @@ class ConfigurationController extends Controller
         $team = Team::where('id', $teamId)->first();
         $teamHasPlayers = TeamHasPlayers::where('team_id', $teamId)->orderBy('active', 'asc')->get();
         $gamePositions = GamePosition::get();
+        $lastMatches = $this->matchService->getMatchOfTeam($teamId, 5)->get();
 
-        return view('configuration.team_dashboard', compact('team', 'teamHasPlayers', 'player', 'gamePositions'));
+        return view('configuration.team_dashboard', compact('team', 'teamHasPlayers', 'player', 'gamePositions', 'lastMatches'));
     }
 }

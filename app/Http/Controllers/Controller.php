@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\MatchService;
 use App\Http\Services\PermissionService;
 use App\Http\Services\PlayerInvitedService;
 use App\Http\Services\UploadService;
@@ -17,11 +18,13 @@ class Controller extends BaseController
     protected $permissionService;
     protected $uploadService;
     protected $playerInvitedService;
+    protected $matchService;
 
     public function __construct()
     {   
         $this->permissionService = new PermissionService();
         $this->uploadService = new UploadService();
         $this->playerInvitedService = new PlayerInvitedService();
+        $this->matchService = new MatchService();
     }
 }

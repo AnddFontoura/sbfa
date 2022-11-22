@@ -27,3 +27,22 @@
                                 </div>
                             </li>
                         @endguest
+
+
+
+
+                        
+                        <h1 class="mt-3"> Informações Financeiras </h1>
+                            
+                        <label for="matchFieldCost" class="mt-3">Custo do Campo</label>
+                        <input type="text" name="match_field_cost" class="form-control" id="matchFieldCost" placeholder="000000.00" value="@if($match){{ $match->birthday }}@else{{ old('birthday') }}@endif">
+                    
+                        <label for="matchRefereeCost" class="mt-3">Custo do Arbitral</label>
+                        <input type="text" name="match_referees_cost" class="form-control" id="matchRefereeCost" placeholder="000000.00" value="@if($match){{ $match->birthday }}@else{{ old('birthday') }}@endif">
+                    
+                        <label for="matchExtraCost" class="mt-3">Custo Extra</label>
+                        <input type="text" name="extra_costs" class="form-control" id="matchExtraCost" placeholder="000000.00" value="@if($match){{ $match->birthday }}@else{{ old('birthday') }}@endif">
+                    
+                        <label for="extraCostDescription" class="mt-3"> Razão do gasto extra </label>
+                        <textarea name="extra_costs_description" class="form-control" id="extraCostDescription" value="@if($match){{ $match->birthday }}@else{{ old('birthday') }}@endif"> </textarea>
+                   
