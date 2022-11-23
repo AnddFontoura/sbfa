@@ -2,20 +2,70 @@
 
 @section('content')
 
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1> Times </h1>
-            </div>
-            <div class="col-sm-6 text-right">
-                <a href="{{ route('teams.create') }}" class="btn btn-info"> Criar Time </a>
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1> Times </h1>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="{{ route('teams.create') }}" class="btn btn-info"> Criar Time </a>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<div class="col-12">
+    <form action="{{ route('teams') }}" method="GET">
+        <section class="card">
+            <div class="card-header">
+                Filtrar times
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12 col-lg-4">
+                        <div class="form-group">
+                            <label for="teamName"> Nome do Time </label>
+                            <input class="form-control" type="text" min="1" max="200" placeholder="Nome do time" name="teamName">
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-12 col-lg-4">
+                        <div class="form-group">
+                            <label for="teamCity">Cidades</label>
+                            <select name="teamCity" class='select2 w-100' id="teamCity">
+                                <option value="0"> --- Escolha uma cidade ---</option>
+                                @foreach($cities as $city)
+                                    <option value="{{$city->id}}" @if(Request::get('teamCity') == $city->id) selected @endif>
+                                        {{ $city->name }} ({{ $city->state->name }}/{{ $city->state->short }})
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-12 col-lg-4">
+                        <div class="form-group">
+                            <label for="teamState">Estados</label>
+                            <select name="teamState" class='select2 w-100' id="teamState">
+                                <option value="0"> --- Escolha um estado ---</option>
+                                @foreach($states as $state)
+                                    <option value="{{$state->id}}" @if(Request::get('teamState') == $state->id) selected @endif>
+                                        {{ $state->name }} ({{ $state->short }})
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer text-right">
+                <input type="submit" class="btn btn-success" value="Filtrar times">
+            </div>
+        </section>
+    </form>
+
     @if(count($teams) == 0)
     <div class="alert alert-success m-3">
         Ainda não existem times criados. <a href="{{ route('teams.create') }}"> Que tal criar um agora? </a>
@@ -48,7 +98,5 @@
     @if(count($teams) > 20)
     {{ $teams->links() }}
     @endif
-</div>
 
-</div>
 @endsection

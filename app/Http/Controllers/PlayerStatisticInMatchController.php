@@ -47,7 +47,11 @@ class PlayerStatisticInMatchController extends Controller
     }
 
     /**
-     *
+     * @param Request $request
+     * @param int $teamId
+     * @param int $matchId
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request, int $teamId, int $matchId)
     {
@@ -78,50 +82,5 @@ class PlayerStatisticInMatchController extends Controller
         }
 
         return redirect('matches/statistics/' .$teamId . '/' . $matchId);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\PlayerStatisticInMatch  $playerStatisticInMatch
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PlayerStatisticInMatch $playerStatisticInMatch)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\PlayerStatisticInMatch  $playerStatisticInMatch
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(PlayerStatisticInMatch $playerStatisticInMatch)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\PlayerStatisticInMatch  $playerStatisticInMatch
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, PlayerStatisticInMatch $playerStatisticInMatch)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\PlayerStatisticInMatch  $playerStatisticInMatch
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(PlayerStatisticInMatch $playerStatisticInMatch)
-    {
-        //
     }
 }

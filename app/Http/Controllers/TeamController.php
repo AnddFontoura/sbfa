@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\City;
+use App\Http\Requests\FilterTeamRequest;
+use App\State;
 use App\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,25 +12,41 @@ use Illuminate\Support\Facades\Storage;
 
 class TeamController extends Controller
 {
-    public function index(Request $request)
+    /**
+     * @param FilterTeamRequest $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index(FilterTeamRequest $request)
     {
-        $teams = Team::paginate(20);
+        $filter = $request->except('_token');
+        $cities = City::orderBy('name', 'asc')->get();
+        $states = State::orderBy('name', 'asc')->get();
 
-        return view('team.index', compact('teams'));
+        $teams = $this->teamService->selectTeamsWithFilters($filter);
+
+        return view('team.index', compact('teams','cities', 'states'));
     }
 
-    public function myTeams()
+    /**
+     * @param FilterTeamRequest $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function myTeams(FilterTeamRequest $request)
     {
+        $filter = $request->except('_token');
+        $cities = City::orderBy('name', 'asc')->get();
+        $states = State::orderBy('name', 'asc')->get();
         $userId = Auth::id();
-        $teams = Team::where('owner_id', $userId)->paginate(20);
+        $filter['ownerId'] = $userId;
+
+        $teams = $this->teamService->selectTeamsWithFilters($filter);
 
         return view('team.index', compact('teams'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param int|null $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create(int $id = null)
     {
@@ -46,17 +64,17 @@ class TeamController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int|null $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request, int $id = null)
     {
         if ($id) {
-            $this->permissionService->checkIfLoggedUserCanManageTeam($id);        
+            $this->permissionService->checkIfLoggedUserCanManageTeam($id);
         }
-        
+
         $this->validate($request, [
             'name' => 'required|string|min:1|max:254',
             'description' => 'nullable|string|max:10000',
@@ -66,7 +84,7 @@ class TeamController extends Controller
         ]);
 
         $data = $request->except('_token');
-           
+
         if ($id) {
             Team::where('id', $id)
                 ->update($data);
@@ -93,10 +111,8 @@ class TeamController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(int $id)
     {

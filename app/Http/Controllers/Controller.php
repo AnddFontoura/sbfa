@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Services\MatchService;
 use App\Http\Services\PermissionService;
 use App\Http\Services\PlayerInvitedService;
+use App\Http\Services\TeamService;
 use App\Http\Services\UploadService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -19,12 +20,14 @@ class Controller extends BaseController
     protected $uploadService;
     protected $playerInvitedService;
     protected $matchService;
+    protected $teamService;
 
     public function __construct()
-    {   
+    {
         $this->permissionService = new PermissionService();
         $this->uploadService = new UploadService();
         $this->playerInvitedService = new PlayerInvitedService();
         $this->matchService = new MatchService();
+        $this->teamService = new TeamService();
     }
 }
