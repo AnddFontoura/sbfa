@@ -23,6 +23,10 @@ class TeamService
                 ->where('state_id', $filter['teamState']);
         }
 
+        if (isset($filter['ownerId']) && $filter['ownerId'] != "") {
+            $teams->where("owner_id", $filter['ownerId']);
+        }
+
         return $teams->paginate(20);
     }
 }
