@@ -28,23 +28,6 @@ class TeamController extends Controller
     }
 
     /**
-     * @param FilterTeamRequest $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function myTeams(FilterTeamRequest $request)
-    {
-        $filter = $request->except('_token');
-        $cities = City::orderBy('name', 'asc')->get();
-        $states = State::orderBy('name', 'asc')->get();
-        $userId = Auth::id();
-        $filter['ownerId'] = $userId;
-
-        $teams = $this->teamService->selectTeamsWithFilters($filter);
-
-        return view('team.index', compact('teams'));
-    }
-
-    /**
      * @param int|null $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -116,10 +99,10 @@ class TeamController extends Controller
      */
     public function show(int $id)
     {
-        $team = Team::where('id', $id)
+        $teamInfo = Team::where('id', $id)
                 ->first();
 
-        return view("team.view",  compact('team'));
+        return view("team.view",  compact('teamInfo'));
     }
 
     /**

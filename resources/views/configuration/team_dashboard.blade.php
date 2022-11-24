@@ -2,19 +2,10 @@
 
 @section('content')
 
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1> Informações do time </h1>
-            </div>
-        </div>
-    </div>
-</section>
 
-<div class="row mt-3 text-left">
+<div class="row">
     <div class="col-md-6 col-12 text-center mt-3">
-        <div class="card  bg-danger text-center">
+        <div class="card bg-danger text-center">
             <div class="card-header">
                 Caixa do time
             </div>
@@ -23,6 +14,10 @@
                 <h1 id='financesField'> R$ 0,00 </h1>
             </div>
         </div>
+    </div>
+
+    <div class="col-md-6 col-12 text-center mt-3">
+        <a href="{{ route('teams.edit', [$team->id]) }}" class="btn btn-lg bg-primary w-100"> Editar time </a>
     </div>
 </div>
 
@@ -47,31 +42,42 @@
                             Ainda não existem jogadores adicionados. Adicione um jogador <a href="{{ route('team_has_player.create', $team->id) }}"> clicando aqui </a>
                         </div>
                         @else
-                        <table class="table table-striped w-100">
-                            <thead>
-                                <tr>
-                                    <th> Posição </th>
-                                    <th> Nome </th>
-                                    <th> Número </th>
-                                    <th class='text-right'> Opções </th>
-                                </tr>
-                            </thead>
+                        <d class="table table-striped w-100">
+                            <div class="row">
                             @foreach($teamHasPlayers as $teamPlayer)
-                            <tr>
-                                <td> {!! $teamPlayer->position->icon !!} </td>
-                                <td> {{ $teamPlayer->name }} <br> @if($teamPlayer->nickname) <p class='text-muted'> ({{ $teamPlayer->nickname}}) </p> @endif </td>
-                                <td> {{ $teamPlayer->number }}</td>
-                                <td class='text-right'>
-                                    <div class="btn-group">
-                                        <a href="{{ route('team_has_player.view', [$team->id, $teamPlayer->id]) }} " class="btn btn-lg btn-secondary" title="Visualizar"> <i class="fas fa-search-plus"></i> </a>
-                                        <a href="{{ route('team_has_player.edit', [$team->id, $teamPlayer->id]) }} " class="btn btn-lg btn-warning" title="Editar"> <i class="fas fa-edit"></i> </a>
-                                        <div class="btn btn-lg btn-success btnInvitePlayer" data-playerid="{{ $teamPlayer->id }}" title="Convidar Jogador por e-mail"> <i class="fas fa-envelope"></i> </div>
-                                        <div class="btn btn-lg btn-danger btnDelete" data-playerid="{{ $teamPlayer->id }}" title="Deletar"> <i class="fas fa-user-times"></i> </div>
+                                <div class="col-md-4 col-lg-4 col-sm-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <h3> Posição </h3>
+                                                    <p>{!! $teamPlayer->position->icon !!} </p>
+                                                </div>
+
+                                                <div class="col-6">
+                                                    <h3> Número </h3>
+                                                    <p> </p>{{ $teamPlayer->number }} </p>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <h3> Nome </h3>
+                                                    <p> {{ $teamPlayer->name }} </p> @if($teamPlayer->nickname) <p class='text-muted'> ({{ $teamPlayer->nickname}}) </p> @endif
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-footer text-center">
+                                            <div class="btn-group">
+                                                <a href="{{ route('team_has_player.view', [$team->id, $teamPlayer->id]) }} " class="btn btn-lg btn-secondary" title="Visualizar"> <i class="fas fa-search-plus"></i> </a>
+                                                <a href="{{ route('team_has_player.edit', [$team->id, $teamPlayer->id]) }} " class="btn btn-lg btn-warning" title="Editar"> <i class="fas fa-edit"></i> </a>
+                                                <div class="btn btn-lg btn-success btnInvitePlayer" data-playerid="{{ $teamPlayer->id }}" title="Convidar Jogador por e-mail"> <i class="fas fa-envelope"></i> </div>
+                                                <div class="btn btn-lg btn-danger btnDelete" data-playerid="{{ $teamPlayer->id }}" title="Deletar"> <i class="fas fa-user-times"></i> </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </td>
-                            </tr>
+                                </div>
                             @endforeach
-                        </table>
+                            </div>
                         @endif
                     </div>
                     <div class="tab-pane fade" id="teamMatchesList" role="tabpanel" aria-labelledby="teamMatchesList-tab">
