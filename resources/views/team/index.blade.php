@@ -23,14 +23,14 @@
 
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-4 col-sm-12 col-lg-4">
+                    <div class="col-md-3 col-sm-12 col-lg-3">
                         <div class="form-group">
                             <label for="teamName"> Nome do Time </label>
-                            <input class="form-control" type="text" min="1" max="200" placeholder="Nome do time" name="teamName">
+                            <input class="form-control" type="text" min="1" max="200" placeholder="Nome do time" name="teamName" value="{{ Request::get('teamName') ?? old('teamName') }}">
                         </div>
                     </div>
 
-                    <div class="col-md-4 col-sm-12 col-lg-4">
+                    <div class="col-md-3 col-sm-12 col-lg-3">
                         <div class="form-group">
                             <label for="teamCity">Cidades</label>
                             <select name="teamCity" class='select2 w-100' id="teamCity">
@@ -44,7 +44,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4 col-sm-12 col-lg-4">
+                    <div class="col-md-3 col-sm-12 col-lg-3">
                         <div class="form-group">
                             <label for="teamState">Estados</label>
                             <select name="teamState" class='select2 w-100' id="teamState">
@@ -55,6 +55,13 @@
                                     </option>
                                 @endforeach
                             </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12 col-lg-3">
+                        <div class="form-group">
+                            <label for="teamName"> Times que eu participo? </label>
+                            <input class="form-control" type="checkbox" name="myTeams" value="1" @if(Request::get('myTeams') == 1) checked @endif>
                         </div>
                     </div>
                 </div>
@@ -73,8 +80,8 @@
     @else
     <div class="row mt-3 text-left">
         @foreach($teams as $teamInfo)
-        <div class="col-md-3 col-lg-2 col-sm-12 d-flex">
-            <div class="card shadow  w-100">
+        <div class="col-md-3 col-lg-3 col-sm-12 d-flex">
+            <div class="card shadow w-100">
                 <div class="card-body text-center flex-fill">
                     <a href="{{ route('teams.view', $teamInfo->id) }}">
                         <h5> {{ $teamInfo->name }} </h5>
@@ -95,8 +102,10 @@
     </div>
     @endif
 
-    @if(count($teams) > 20)
-    {{ $teams->links() }}
-    @endif
+    <div class="card">
+        <div class="card-footer">
+            {{ $teams->appends(request()->query())->links() }}
+        </div>
+    </div>
 
 @endsection

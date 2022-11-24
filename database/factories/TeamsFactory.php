@@ -9,15 +9,15 @@ use Faker\Generator as Faker;
 $factory->define(Team::class, function (Faker $faker) {
     $userId = Factory(User::class)->create()->id;
     $headers = [
-        'headers/gremio_torcida.jpg',
-        'headers/torcida_generica.jpg',
-        'headers/torcida_generica_2.jpg',
+        'headers/1.jpg',
+        'headers/2.jpg',
+        'headers/3.jpg',
     ];
 
     $logos = [
-      'logos/lion.jpg',
-      'logos/eagle.jpeg',
-      'logos/random.png',
+      'logos/1.jpg',
+      'logos/2.jpeg',
+      'logos/3.png',
     ];
 
     return [

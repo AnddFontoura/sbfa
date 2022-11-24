@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 use App\Team;
+use Illuminate\Support\Facades\Auth;
 
 class TeamService
 {
@@ -11,7 +12,7 @@ class TeamService
         $teams = Team::select();
 
         if (isset($filter['teamName']) && $filter['teamName'] != "") {
-            $teams->where('name', '%' . $filter['teamName'] . '%');
+            $teams->where('name', 'like', '%' . $filter['teamName'] . '%');
         }
 
         if (isset($filter['teamCity']) && $filter['teamCity'] != 0) {
@@ -23,8 +24,9 @@ class TeamService
                 ->where('state_id', $filter['teamState']);
         }
 
-        if (isset($filter['ownerId']) && $filter['ownerId'] != "") {
-            $teams->where("owner_id", $filter['ownerId']);
+        if (isset($filter['myTeams']) && $filter['myTeams'] != "") {
+            $user = Auth::user();
+            $teams->where("owner_id", $user->id);
         }
 
         return $teams->paginate(20);

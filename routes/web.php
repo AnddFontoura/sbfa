@@ -19,7 +19,6 @@ Route::get('home','HomeController@index');
 Route::middleware(['auth'])->group(function() {
     Route::prefix('teams')->group(function() {
         Route::match(['get', 'post'], '/', 'TeamController@index')->name('teams');
-        Route::match(['get', 'post'], 'my-teams', 'TeamController@myTeams');
         Route::get('form', 'TeamController@create')->name('teams.create');
         Route::get('form/{id}', 'TeamController@create')->name('teams.edit');
         Route::post('store', 'TeamController@store')->name('teams.save');
@@ -59,7 +58,7 @@ Route::middleware(['auth'])->group(function() {
         Route::get('cost/form/{teamId}/{matchId}', 'MatchCostController@create')->name('matches.cost.create');
         Route::post('cost/store/{teamId}/{matchId}', 'MatchCostController@store')->name('matches.cost.save');
     });
-    
+
     Route::prefix('statistics')->group(function() {
         //Route::match(['get', 'post'], '/', 'MatchesController@index')->name('teams');
         //Route::match(['get', 'post'], 'my-teams', 'MatchesController@myTeams');
@@ -69,5 +68,10 @@ Route::middleware(['auth'])->group(function() {
         Route::post('store/{teamId}/{matchId}', 'StatisticController@update')->name('statistics.update');
         Route::get('show/{matchId}', 'MatchesController@show')->name('statistics.view');
         Route::get('statistics/{teamId}/{matchId}', 'MatchesController@statistics')->name('statistics.statistics');
+    });
+
+    Route::prefix('profile')->group(function() {
+        Route::get('/', 'ProfileController@create')->name('profile');
+        Route::post('store', 'ProfileController@store')->name('profile.save');
     });
 });

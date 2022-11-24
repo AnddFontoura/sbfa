@@ -13253,7 +13253,8 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
   .main-sidebar .logo-xs,
   .main-sidebar .logo-xl,
   .sidebar .user-panel .info {
-    transition: none;
+      transition: none;
+      word-wrap: break-word
   }
 }
 

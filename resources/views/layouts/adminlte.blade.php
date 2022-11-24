@@ -40,24 +40,15 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="../../index3.html" class="nav-link">Home</a>
+                <a href="#" class="nav-link">Times</a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Contact</a>
+                <a href="#" class="nav-link">Partidas</a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="#" class="nav-link">Campeonatos</a>
             </li>
         </ul>
-
-        <!-- SEARCH FORM -->
-        <form class="form-inline ml-3">
-            <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-navbar" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
@@ -90,7 +81,7 @@
             </li>
             <li class="nav-item">
                 <a class="btn btn-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
+                    Sair
                 </a>
 
               <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -105,8 +96,8 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="{{ url('/') }}" class="brand-link">
-            <img src="{{ asset('/img/AdminLTELogo.png') }}"
-                 alt="AdminLTE Logo"
+            <img src="{{ asset('/img/SBFAlogo.png') }}"
+                 alt="SBFA Logo"
                  class="brand-image img-circle elevation-3"
                  style="opacity: .8">
             <span class="brand-text font-weight-light">SBFA</span>
@@ -120,7 +111,7 @@
                     <img src="{{ asset('/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">André Fontoura</a>
+                    <a href="{{ route('profile') }}" class="d-block" style="word-wrap: break-word;"> {{ Auth::user()->name ?? 'Complete seu cadastro' }}</a>
                 </div>
             </div>
 
@@ -128,28 +119,13 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item">
+                        <a href="{{ url('teams') }}" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Times
-                                <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ url('teams') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p> Buscar Times </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ url('teams/my-teams') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p> Meus Times </p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                 </ul>
             </nav>
