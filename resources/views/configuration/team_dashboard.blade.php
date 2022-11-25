@@ -13,11 +13,17 @@
             <div class="card-body">
                 <h1 id='financesField'> R$ 0,00 </h1>
             </div>
+
+            <div class="card-footer">
+                <a href="#" class="btn btn-danger w-100"> Acessar financeiro </a>
+            </div>
         </div>
     </div>
 
-    <div class="col-md-6 col-12 text-center mt-3">
+    <div class="col-md-6 col-12 mt-3">
         <a href="{{ route('teams.edit', [$team->id]) }}" class="btn btn-lg bg-primary w-100"> Editar time </a>
+        <a href="#" class="btn btn-lg bg-secondary w-100 mt-3"> Listar Partidas </a>
+        <a href="#" class="btn btn-lg bg-success w-100 mt-3"> Listar Jogadores </a>
     </div>
 </div>
 
@@ -42,7 +48,6 @@
                             Ainda não existem jogadores adicionados. Adicione um jogador <a href="{{ route('team_has_player.create', $team->id) }}"> clicando aqui </a>
                         </div>
                         @else
-                        <d class="table table-striped w-100">
                             <div class="row">
                             @foreach($teamHasPlayers as $teamPlayer)
                                 <div class="col-md-4 col-lg-4 col-sm-12">
@@ -56,7 +61,7 @@
 
                                                 <div class="col-6">
                                                     <h3> Número </h3>
-                                                    <p> </p>{{ $teamPlayer->number }} </p>
+                                                    <p> {{ $teamPlayer->number }} </p>
                                                 </div>
 
                                                 <div class="col-12">
@@ -82,41 +87,44 @@
                     </div>
                     <div class="tab-pane fade" id="teamMatchesList" role="tabpanel" aria-labelledby="teamMatchesList-tab">
                         @if(count($lastMatches) > 0)
-                        <table class="table table-stripped">
-                            <thead>
-                                <tr>
-                                    <th> Time Mandante </th>
-                                    <th> </th>
-                                    <th> X </th>
-                                    <th> </th>
-                                    <th> Time Visitante </th>
-                                    <th class="text-right"> Opções </th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
+                            <div class="row">
                                 @foreach($lastMatches as $matchInfo)
-                                <tr>
-                                    <td> {{ $matchInfo->homeTeam->name ?? $matchInfo->home_team_name }}</td>
-                                    <td> {{ $matchInfo->home_score }}</td>
-                                    <td> x </td>
-                                    <td> {{ $matchInfo->visitor_score }}</td>
-                                    <td> {{ $matchInfo->visitorTeam->name ?? $matchInfo->visitor_team_name }} </td>
-                                    <td class="text-right">
+                                    <div class="col-md-6 col-lg-6 col-sm-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-5 text-center">
+                                                        <h3> Mandante </h3>
+                                                        <p> {{ $matchInfo->homeTeam->name ?? $matchInfo->home_team_name }} </p>
+                                                        <h2> {{ $matchInfo->home_score }} </h2>
+                                                    </div>
 
-                                        <div class="btn-group">
-                                            <a href="{{ route('matches.view', $matchInfo->id) }}" class="btn btn-lg btn-secondary" title="Visualizar dados gerais da partida"> <i class="fas fa-eye"></i> </a>
-                                            <a href="{{ route('matches.edit', [$team->id, $matchInfo->id]) }}" class="btn btn-lg btn-warning" title="Editar Informações da Partida"> <i class="fas fa-edit"></i> </a>
-                                            <a href="{{ route('matches.player-at.create', [$team->id, $matchInfo->id]) }}" class="btn btn-lg btn-success" title="Vincular Jogadores"> <i class="fas fa-users"></i> </a>
-                                            <a href="{{ route('matches.statistics.create', [$team->id, $matchInfo->id]) }}" class="btn btn-lg btn-primary" title="Editar Estatisticas dos jogadores"> <i class="fas fa-chart-bar"></i> </a>
-                                            <a href="{{ route('matches.cost.create', [$team->id, $matchInfo->id]) }}" class="btn btn-lg bg-indigo text-white" title="Editar financeiro da partida"> <i class="fas fa-coins"></i> </a>
-                                            <div class="btn btn-lg btn-danger btnDeleteMatch" data-matchid="{{ $matchInfo->id }}" title="Deletar partida"> <i class="fas fa-minus-circle"></i> </div>
+                                                    <div class="col-2 text-center">
+                                                        <h1> X </h1>
+                                                    </div>
+
+                                                    <div class="col-5 text-center">
+                                                        <h3> Visitante </h3>
+                                                        <p> {{ $matchInfo->visitorTeam->name ?? $matchInfo->visitor_team_name }} </p>
+                                                        <h2> {{ $matchInfo->visitor_score }} </h2>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="card-footer text-center">
+                                                <div class="btn-group">
+                                                    <a href="{{ route('matches.view', $matchInfo->id) }}" class="btn btn-lg btn-secondary" title="Visualizar dados gerais da partida"> <i class="fas fa-eye"></i> </a>
+                                                    <a href="{{ route('matches.edit', [$team->id, $matchInfo->id]) }}" class="btn btn-lg btn-warning" title="Editar Informações da Partida"> <i class="fas fa-edit"></i> </a>
+                                                    <a href="{{ route('matches.player-at.create', [$team->id, $matchInfo->id]) }}" class="btn btn-lg btn-success" title="Vincular Jogadores"> <i class="fas fa-users"></i> </a>
+                                                    <a href="{{ route('matches.statistics.create', [$team->id, $matchInfo->id]) }}" class="btn btn-lg btn-primary" title="Editar Estatisticas dos jogadores"> <i class="fas fa-chart-bar"></i> </a>
+                                                    <a href="{{ route('matches.cost.create', [$team->id, $matchInfo->id]) }}" class="btn btn-lg bg-indigo text-white" title="Editar financeiro da partida"> <i class="fas fa-coins"></i> </a>
+                                                    <div class="btn btn-lg btn-danger btnDeleteMatch" data-matchid="{{ $matchInfo->id }}" title="Deletar partida"> <i class="fas fa-minus-circle"></i> </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </td>
-                                </tr>
+                                    </div>
                                 @endforeach
-                            </tbody>
-                        </table>
+                            </div>
                         @else
                         <div class="alert alert-danger"> Nenhum jogo cadastrado, <a href="{{ route('matches.create', $team->id) }}"> clique aqui para cadastrar um </a> </div>
                         @endif

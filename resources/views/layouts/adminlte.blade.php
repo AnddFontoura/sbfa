@@ -113,10 +113,13 @@
                     data-accordion="false">
                     <li class="nav-item">
                         <a href="{{ url('teams') }}" class="nav-link">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
-                            <p>
-                                Times
-                            </p>
+                            <i class="fas fa-user-shield mr-1"></i> <p> Times </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ url('matches') }}" class="nav-link">
+                            <i class="fas fa-futbol mr-1"></i> <p> Partidas </p>
                         </a>
                     </li>
                 </ul>

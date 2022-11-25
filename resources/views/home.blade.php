@@ -13,18 +13,28 @@
 </section>
 
 <div class="row mt-3">
-    @if(count($playerInvitedToAnyTeam) > 0)
     <div class="col-md-6 col-lg-4 col-12">
-        @foreach($playerInvitedToAnyTeam as $invite)
-            <div class="alert alert-warning mt-3">
-                <p class="text-white"> O time <b>{{ $invite->teamHasPlayer->team->name }}</b> de <b> {{ $invite->teamHasPlayer->team->city->name }}/{{ $invite->teamHasPlayer->team->city->state->short}} </b> convidou você para ser parte do elenco, deseja participar? </p>
-                <div href="{{ route('players_invited.yes', $invite->id) }}" class="btn btn-lg btn-success mt-3 mr-3 btnAcceptInvite" data-inviteid="{{ $invite->id }}"> <i class="fas fa-check-square"></i> Sim </div> 
-                <div href="{{ route('players_invited.no', $invite->id) }}" class="btn btn-lg btn-danger mt-3 mr-3 btnRefuseInvite" data-inviteid="{{ $invite->id }}"> <i class="fas fa-window-close"></i> Não </div>
-                <a href="{{ route('teams.view', $invite->teamHasPlayer->id) }}" class="btn btn-lg btn-info mt-3"> <i class="fas fa-eye"></i> Ver time </a>
-            </div>
-        @endforeach
+        <div class="alert alert-danger"> Atualize seus dados cadastrais </div>
     </div>
-    @endif
+
+    <div class="col-md-6 col-lg-4 col-12">
+        @if(count($playerInvitedToAnyTeam) > 0)
+            @foreach($playerInvitedToAnyTeam as $invite)
+                <div class="alert alert-warning mt-3">
+                    <p class="text-white"> O time <b>{{ $invite->teamHasPlayer->team->name }}</b> de <b> {{ $invite->teamHasPlayer->team->city->name }}/{{ $invite->teamHasPlayer->team->city->state->short}} </b> convidou você para ser parte do elenco, deseja participar? </p>
+                    <div href="{{ route('players_invited.yes', $invite->id) }}" class="btn btn-lg btn-success mt-3 mr-3 btnAcceptInvite" data-inviteid="{{ $invite->id }}"> <i class="fas fa-check-square"></i> Sim </div>
+                    <div href="{{ route('players_invited.no', $invite->id) }}" class="btn btn-lg btn-danger mt-3 mr-3 btnRefuseInvite" data-inviteid="{{ $invite->id }}"> <i class="fas fa-window-close"></i> Não </div>
+                    <a href="{{ route('teams.view', $invite->teamHasPlayer->id) }}" class="btn btn-lg btn-info mt-3"> <i class="fas fa-eye"></i> Ver time </a>
+                </div>
+            @endforeach
+        @else
+            <div class="alert alert-secondary"> Nenhum convite para times no momento </div>
+        @endif
+    </div>
+
+    <div class="col-md-6 col-lg-4 col-12">
+        <div class="alert alert-secondary"> Nenhum convite para jogos no momento </div>
+    </div>
 </div>
 
 <div class="row">
@@ -42,7 +52,7 @@
             <a href="#" class="small-box-footer">Ver lista <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
-    
+
     <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="small-box bg-info">
             <div class="inner">
@@ -57,12 +67,12 @@
             <a href="#" class="small-box-footer">Ver lista <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
-    
+
     <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="small-box bg-warning">
             <div class="inner">
                 <h3>53</h3>
-                <p>Jogadores sem time</p>
+                <p>Partidas que acontecerão</p>
             </div>
 
             <div class="icon">
@@ -75,8 +85,8 @@
 
     <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="card">
-            <div class="card-header"> 
-                <b> Últimos Jogos </b> 
+            <div class="card-header">
+                <b> Últimos Jogos </b>
             </div>
 
             <div class="card-body">
@@ -123,8 +133,8 @@
 
     <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="card">
-            <div class="card-header"> 
-                <b> Próximos Jogos </b> 
+            <div class="card-header">
+                <b> Próximos Jogos </b>
             </div>
 
             <div class="card-body">
@@ -162,7 +172,7 @@
                 </tbody>
             </table>
         </div>
-       
+
     </div>
 </div>
 @endsection
@@ -171,7 +181,7 @@
 <script>
     $('.btnAcceptInvite').on('click', function() {
         var inviteId = $(this).data('inviteid');
-        
+
         Swal.fire({
             title: 'Atenção!',
             text: 'Você está prestes a aceitar um convite. Você terá acesso a algumas informações desse time ao aceitar. Deseja continuar?',
@@ -228,7 +238,7 @@
 
     $('.btnRefuseInvite').on('click', function() {
         var inviteId = $(this).data('inviteid');
-        
+
         Swal.fire({
             title: 'Atenção!',
             text: 'Você está prestes a recusar um convite. Você não terá acesso a algumas informações desse time ao recusar. Deseja continuar?',
