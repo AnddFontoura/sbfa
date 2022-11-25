@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\City;
 use App\Matches;
+use App\State;
 use App\Statistic;
 use App\Team;
 use App\TeamHasPlayers;
@@ -13,13 +14,21 @@ use Illuminate\Validation\Rule;
 class MatchesController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Lista as partidas que foram cadastradas na plataforma
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $filter = $request->except('_token');
+        $cities = City::orderBy('name', 'asc')->get();
+        $states = State::orderBy('name', 'asc')->get();
+        $teams = Team::select('id', 'name')->get();
+
+        $matches = Matches::orderBy('match_datetime', 'desc')->paginate(20);
+
+        return view('match.index', compact('matches', 'cities', 'states', 'teams'));
     }
 
     public function statistics(int $teamId, int $matchId)
@@ -38,9 +47,9 @@ class MatchesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param int $teamId
+     * @param int|null $matchId
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create(int $teamId, int $matchId = null)
     {
@@ -50,14 +59,14 @@ class MatchesController extends Controller
 
         if($matchId) {
             $match = Matches::where('id', $matchId)->first();
-        
+
             if ($match->home_team_id == $teamId) {
                 $match->homeOrVisitor = 'home';
                 $match->myTeamScore = $match->home_score;
                 $match->enemyTeamName = $match->visitor_team_name;
                 $match->enemyTeamScore = $match->visitor_score;
-            } 
-    
+            }
+
             if ($match->visitor_team_id == $teamId) {
                 $match->homeOrVisitor = 'visitor';
                 $match->myTeamScore = $match->visitor_score;
@@ -70,10 +79,10 @@ class MatchesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $teamId
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request, int $teamId)
     {
@@ -94,14 +103,14 @@ class MatchesController extends Controller
         $visitorTeamName = null;
         $visitorTeamId = null;
         $visitorTeamScore = null;
-    
-        
+
+
         if ($data['homeOrVisitor'] == 'home') {
             $homeTeamId = $teamId;
             $homeTeamScore = $data['myTeamScore'];
             $visitorTeamName = $data['enemyTeamName'];
             $visitorTeamScore = $data['enemyTeamScore'];
-        } 
+        }
 
         if ($data['homeOrVisitor'] == 'visitor') {
             $visitorTeamId = $teamId;
@@ -129,11 +138,11 @@ class MatchesController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Match  $match
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $teamId
+     * @param int $matchId
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, int $teamId, int $matchId)
     {
@@ -154,14 +163,14 @@ class MatchesController extends Controller
         $visitorTeamName = null;
         $visitorTeamId = null;
         $visitorTeamScore = null;
-    
-        
+
+
         if ($data['homeOrVisitor'] == 'home') {
             $homeTeamId = $teamId;
             $homeTeamScore = $data['myTeamScore'];
             $visitorTeamName = $data['enemyTeamName'];
             $visitorTeamScore = $data['enemyTeamScore'];
-        } 
+        }
 
         if ($data['homeOrVisitor'] == 'visitor') {
             $visitorTeamId = $teamId;
@@ -188,10 +197,8 @@ class MatchesController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Match  $match
-     * @return \Illuminate\Http\Response
+     * @param int $matchId
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(int $matchId)
     {

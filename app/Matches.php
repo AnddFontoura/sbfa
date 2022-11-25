@@ -24,16 +24,12 @@ class Matches extends Model
         'match_address',
         'show_home_profile',
         'show_visitor_profile',
-        /*
-        'match_total_cost',
-        'match_field_cost',
-        'match_referees_cost',
-        'extra_costs',
-        'extra_costs_description',
-        */
     ];
 
-    
+    public $dates = [
+        'match_datetime',
+    ];
+
     public function visitorTeam()
     {
         return $this->belongsTo(Team::class, 'visitor_team_id', 'id');

@@ -13,17 +13,6 @@
 </section>
 
 <div class="row mt-3 text-left">
-    <div class="col-md-1 col-12 mt-3 text-center">
-        @if($team->logo)
-        <img src="{{ asset('storage/' . $team->logo) }}" class="img w-50"></img>
-        @endif
-    </div>
-    
-    <div class="col-md-5 col-12 mt-3">
-        <h5> {{ $team->name}} </h5>
-        <p> {{$team->city->name}} ({{$team->city->state->name}}/{{ $team->city->state->short }})
-    </div>
-
     <div class="col-md-6 col-12 mt-3 text-center">
         <a href="{{ route('configuration.team', $team->id) }}" class="btn btn-success"> Configuração do time </a>
     </div>
