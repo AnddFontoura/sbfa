@@ -15,14 +15,14 @@
                 </div>
                 @endif
 
-                <div class="col-md-6 col-12">
+                <div class="col-md-6 col-12 mt-3">
                     @if($teamInfo->logo)
                     <img src="{{ asset('storage/' . $teamInfo->logo) }}" class="img w-100"></img>
                     @else
                         <div class='alert alert-danger'> Esse time não cadastrou uma logo </div>
                     @endif
 
-                    <div class="small-box bg-primary">
+                    <div class="small-box bg-primary mt-3">
                         <div class="inner">
                             <h3>44</h3>
                             <p>Jogadores ativos</p>
@@ -47,11 +47,11 @@
                 <div class="col-md-6 col-12">
                     <div class="callout callout-info mt-3 shadow">
                         <h5> Criado por </h5>
-                        <p> {{ $teamInfo->owner->name ?? ''}} </p>
+                        <p> {{ $teamInfo->owner->name ?? 'Nome não cadastrado'}} </p>
                     </div>
 
                     <div class="callout callout-info shadow">
-                        <h5> Cidade </h5>
+                        <h5> Cidade / Estado </h5>
                         <p> {{ $teamInfo->city->name }} / {{ $teamInfo->city->state->short ?? '' }} </p>
                     </div>
 
