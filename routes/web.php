@@ -46,6 +46,7 @@ Route::middleware(['auth'])->group(function() {
     });
 
     Route::prefix('matches')->group(function() {
+        Route::match(['get', 'post'], '/', 'MatchesController@index')->name('matches');
         Route::get('form/{teamId}', 'MatchesController@create')->name('matches.create');
         Route::get('form/{teamId}/{matchId}', 'MatchesController@create')->name('matches.edit');
         Route::post('store/{teamId}', 'MatchesController@store')->name('matches.save');
