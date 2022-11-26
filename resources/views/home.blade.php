@@ -13,6 +13,18 @@
 </section>
 
 <div class="row mt-3">
+    @if(!$userHasValidEmail)
+    <div class="col-12">
+        <div class="alert alert-danger">
+            Verifique seu e-mail para ter acesso completo ao sistema.
+
+            <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
+                @csrf
+                <button type="submit" class="btn btn-danger btn-primary"> Clique aqui para verificar </button>.
+            </form>
+        </div>
+    </div>
+    @endif
     <div class="col-md-6 col-lg-4 col-12">
         <div class="alert alert-danger"> Atualize seus dados cadastrais </div>
     </div>
