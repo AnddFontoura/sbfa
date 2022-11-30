@@ -60,7 +60,8 @@
                 <div class="col-md-4 col-lg-4 col-sm-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="row">
+                            <img src="{{ asset('storage/' . $profile->photo) }}" class="card-img-top">
+                            <div class="row mt-3">
                                 <div class="col-12">
                                     <h4> {{ $profile->user->name }} </h4>
                                     @if($profile->nickname)
@@ -70,7 +71,7 @@
 
                                 @if($profile->city)
                                     <div class="col-12 mt-3">
-                                        <h6>{{ $profile->city->name }} ({{$profile->city->state->short}}</h6>
+                                        <h6>{{ $profile->city->name }} ({{$profile->city->state->short}})</h6>
                                     </div>
                                 @endif
                             </div>
@@ -84,7 +85,7 @@
             @endforeach
         @else
             <div class="col-12">
-                <div class="alert alert-danger"> Nenhum jogador cadastrado, <a href="{{ route('profile') }}"> clique aqui para cadastrar um </a> </div>
+                <div class="alert alert-danger"> Nenhum jogador cadastrado com esses parâmetros </div>
             </div>
         @endif
     </div>
