@@ -73,4 +73,9 @@ Route::middleware(['auth'])->group(function() {
         Route::get('/', 'ProfileController@create')->name('profile');
         Route::post('store', 'ProfileController@store')->name('profile.save');
     });
+
+    Route::prefix('players')->group(function() {
+        Route::match(['get', 'post'], '/', 'UserProfileController@index')->name('players');
+        Route::get('{profileId}', 'UserProfileController@show')->name('players.view');
+    });
 });

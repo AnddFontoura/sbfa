@@ -16,9 +16,11 @@ class CreateUsersProfilesTable extends Migration
         Schema::create('users_profiles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->nullable(false);
+            $table->unsignedBigInteger('city_id')->nullable(true);
             $table->boolean('is_player')->default(0);
             $table->string('nickname', 255)->nullable(true);
             $table->string('photo', 500)->nullable(true);
+            $table->string('mobile_number',20)->nullable(true);
             $table->integer('weight')->nullable(true);
             $table->integer('height')->nullable(true);
             $table->text('description')->nullable(true);
@@ -28,6 +30,7 @@ class CreateUsersProfilesTable extends Migration
             $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('city_id')->references('id')->on('cities');
         });
     }
 

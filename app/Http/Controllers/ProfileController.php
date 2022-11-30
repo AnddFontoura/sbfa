@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\City;
 use App\GamePosition;
 use App\Http\Requests\ProfileRequest;
 use App\User;
@@ -14,10 +15,11 @@ class ProfileController extends Controller
     {
         $userId = Auth::user()->id;
         $user = User::where('id', $userId)->first();
+        $cities = City::orderBy('name', 'asc')->get();
         $gamePositions = GamePosition::get();
-        $selectedPositions = json_decode($user->profile->game_positions);
+        $selectedPositions = json_decode($user->profile->game_positions ?? null);
 
-        return view('profile.form', compact('user', 'gamePositions', 'selectedPositions'));
+        return view('profile.form', compact('user', 'gamePositions', 'selectedPositions', 'cities'));
     }
 
     public function store(ProfileRequest $request)
@@ -26,6 +28,10 @@ class ProfileController extends Controller
 
         $user = Auth::user();
         $data = $request->except('_token');
+
+        if($data['userCity'] == 0) {
+            $data['userCity'] = null;
+        }
 
         if ($request->file('userPhoto')) {
             $picturePath = $this->uploadService->uploadFileToFolder('public', 'profiles_pictures', $data['userPhoto']);
@@ -47,7 +53,9 @@ class ProfileController extends Controller
         if($hasProfile) {
             UserProfile::where('user_id', $user->id)->update([
                 'is_player' => $data['userIsPlayer'] ?? 0,
+                'city_id' => $data['userCity'] ?? null,
                 'nickname' => $data['userNickName'] ?? null,
+                'mobile_number' => $data['userCellphone'] ?? null,
                 'weight' => $data['userWeight'] ?? null,
                 'height' => $data['userHeight'] ?? null,
                 'description' => $data['userDescription'] ?? null,
@@ -58,7 +66,9 @@ class ProfileController extends Controller
             UserProfile::create([
                 'user_id' => $user->id,
                 'is_player' => $data['userIsPlayer'] ?? 0,
+                'city_id' => $data['userCity'] ?? null,
                 'nickname' => $data['userNickName'] ?? null,
+                'mobile_number' => $data['userCellphone'] ?? null,
                 'weight' => $data['userWeight'] ?? null,
                 'height' => $data['userHeight'] ?? null,
                 'description' => $data['userDescription'] ?? null,
