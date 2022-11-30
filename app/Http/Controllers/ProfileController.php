@@ -44,7 +44,7 @@ class ProfileController extends Controller
                 ]);
         }
 
-        if (isset($data['userPositions']) && !empty($Data['userPositions'])) {
+        if (isset($data['userPositions']) && !empty($data['userPositions'])) {
             $data['userPositions'] = json_encode($data['userPositions']);
         }
 
