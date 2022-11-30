@@ -83,7 +83,9 @@
                 </div>
             @endforeach
         @else
-            <div class="alert alert-danger"> Nenhum jogador cadastrado, <a href="{{ route('profiles.create') }}"> clique aqui para cadastrar um </a> </div>
+            <div class="col-12">
+                <div class="alert alert-danger"> Nenhum jogador cadastrado, <a href="{{ route('profile') }}"> clique aqui para cadastrar um </a> </div>
+            </div>
         @endif
     </div>
 @endsection
