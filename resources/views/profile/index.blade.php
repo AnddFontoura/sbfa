@@ -74,6 +74,14 @@
                                         <h6>{{ $profile->city->name }} ({{$profile->city->state->short}})</h6>
                                     </div>
                                 @endif
+
+                                @if($profile->positions)
+                                    <div class="col-12 mt-3 text-center">
+                                        @foreach($profile->positions as $position)
+                                            {!! $position->icon !!}
+                                        @endforeach
+                                    </div>
+                                @endif
                             </div>
                         </div>
 
