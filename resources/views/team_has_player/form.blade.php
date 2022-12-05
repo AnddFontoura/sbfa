@@ -14,7 +14,7 @@
 
 <div class="row mt-3">
     <div class="col-12">
-        <form action="@if($player) {{ route('team_has_player.update', [$team->id, $player->id]) }} @else {{ route('team_has_player.save', $team->id) }} @endif" method='POST'>
+        <form action="@if($player) {{ route('team_has_player.update', [$team->id, $player->id]) }} @else {{ route('team_has_player.save', $team->id) }} @endif" method='POST' enctype="multipart/form-data">
             @csrf
             <div class="card">
                 <div class="card-header">
@@ -69,6 +69,15 @@
                         <div class="form-group col-lg-3 col-md-3 col-sm-12 mt-3">
                             <label for="playerHeight">Altura (cm)</label>
                             <input type="number" name="height" class="form-control" id="playerHeight" placeholder="xxx" value="@if($player){{ $player->height }}@else{{ old('height') }}@endif">
+                        </div>
+
+                        <div class="col-12">
+                            <h1> Sobre o Jogador </h1>
+                        </div>
+
+                        <div class="form-group col-12">
+                            <label for="profilePicture"></label>
+                            <input type="file" name="profilePicture" class="form-control" id="profilePicture">
                         </div>
 
                     </div>

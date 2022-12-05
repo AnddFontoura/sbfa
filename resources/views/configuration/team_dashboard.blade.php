@@ -50,10 +50,15 @@
                         @else
                             <div class="row">
                             @foreach($teamHasPlayers as $teamPlayer)
-                                <div class="col-md-4 col-lg-4 col-sm-12">
+                                <div class="col-md-4 col-lg-4 col-sm-12 d-flex align-items-stretch">
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="row">
+                                                @if($teamPlayer->profile_picture)
+                                                    <img src="{{ asset('storage/' . $teamPlayer->profile_picture) }}" class="card-img-top">
+                                                @else
+                                                    <img src="{{ asset('img/no-profile-photo.png') }}" class="card-img-top">
+                                                @endif
                                                 <div class="col-6">
                                                     <h3> Posição </h3>
                                                     <p>{!! $teamPlayer->position->icon !!} </p>
@@ -87,7 +92,7 @@
                         @if(count($lastMatches) > 0)
                             <div class="row">
                                 @foreach($lastMatches as $matchInfo)
-                                    <div class="col-md-6 col-lg-6 col-sm-12">
+                                    <div class="col-md-6 col-lg-6 col-sm-12 d-flex align-items-stretch">
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="row">
