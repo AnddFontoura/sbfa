@@ -15,6 +15,7 @@ class TeamHasPlayers extends Model
         'team_id',
         'user_id',
         'position_id',
+        'profile_picture',
         'name',
         'nickname',
         'number',
