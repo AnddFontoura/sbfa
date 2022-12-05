@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TeamHasPlayers extends Model
@@ -26,17 +27,17 @@ class TeamHasPlayers extends Model
         'inactive_reason',
     ];
 
-    public function player()
+    public function player(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function team()
+    public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class, 'team_id', 'id');
     }
 
-    public function position()
+    public function position(): BelongsTo
     {
         return $this->belongsTo(GamePosition::class, 'position_id', 'id');
     }

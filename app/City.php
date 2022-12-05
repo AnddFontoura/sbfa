@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class City extends Model
@@ -15,7 +16,7 @@ class City extends Model
         'ibge_code'
     ];
 
-    public function state()
+    public function state(): BelongsTo
     {
         return $this->belongsTo(State::class, 'state_id', 'id');
     }
