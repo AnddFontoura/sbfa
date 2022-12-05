@@ -122,6 +122,12 @@
                             <i class="fas fa-futbol mr-1"></i> <p> Partidas </p>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="{{ url('players') }}" class="nav-link">
+                            <i class="fas fa-users mr-1"></i> <p> Jogadores </p>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

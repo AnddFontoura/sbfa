@@ -26,9 +26,10 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $userEmail = Auth::user()->email;
+        $userHasValidEmail = Auth::user()->email_verified_at;
 
         $playerInvitedToAnyTeam = PlayerInvited::where('email', $userEmail)->get();
 
-        return view('home', compact('playerInvitedToAnyTeam'));
+        return view('home', compact('playerInvitedToAnyTeam', 'userHasValidEmail'));
     }
 }

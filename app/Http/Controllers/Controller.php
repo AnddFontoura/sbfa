@@ -7,6 +7,7 @@ use App\Http\Services\PermissionService;
 use App\Http\Services\PlayerInvitedService;
 use App\Http\Services\TeamService;
 use App\Http\Services\UploadService;
+use App\Http\Services\UserService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -21,6 +22,7 @@ class Controller extends BaseController
     protected $playerInvitedService;
     protected $matchService;
     protected $teamService;
+    protected $userService;
 
     public function __construct()
     {
@@ -29,5 +31,6 @@ class Controller extends BaseController
         $this->playerInvitedService = new PlayerInvitedService();
         $this->matchService = new MatchService();
         $this->teamService = new TeamService();
+        $this->userService = new UserService();
     }
 }

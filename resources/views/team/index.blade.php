@@ -80,7 +80,7 @@
     @else
     <div class="row mt-3 text-left">
         @foreach($teams as $teamInfo)
-        <div class="col-md-3 col-lg-3 col-sm-12 d-flex">
+        <div class="col-md-3 col-lg-3 col-sm-12 d-flex align-items-stretch">
             <div class="card shadow w-100">
                 <div class="card-body text-center flex-fill">
                     <a href="{{ route('teams.view', $teamInfo->id) }}">
