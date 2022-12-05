@@ -57,11 +57,15 @@
 
         @if(count($userProfiles) > 0)
             @foreach($userProfiles as $profile)
-                <div class="col-md-4 col-lg-4 col-sm-12">
+                <div class="col-md-4 col-lg-4 col-sm-12 d-flex align-items-stretch">
                     <div class="card">
                         <div class="card-body">
+                            @if($profile->photo)
                             <img src="{{ asset('storage/' . $profile->photo) }}" class="card-img-top">
-                            <div class="row mt-3">
+                            @else
+                                <img src="{{ asset('img/no-profile-photo.png') }}" class="card-img-top">
+                            @endif
+                                <div class="row mt-3">
                                 <div class="col-12">
                                     <h4> {{ $profile->user->name }} </h4>
                                     @if($profile->nickname)
@@ -77,8 +81,10 @@
 
                                 @if($profile->positions)
                                     <div class="col-12 mt-3 text-center">
-                                        @foreach($profile->positions as $position)
+                                        @foreach($profile->positions as $key => $position)
+                                            @if($key < 5)
                                             {!! $position->icon !!}
+                                            @endif
                                         @endforeach
                                     </div>
                                 @endif
@@ -86,7 +92,7 @@
                         </div>
 
                         <div class="card-footer text-center">
-                            <a href="{{ route('players.view', $profile->id) }}" class="btn btn-lg btn-secondary mt-1" title="Visualizar perfil"> <i class="fas fa-eye"></i> </a>
+                            <a href="{{ route('players.view', $profile->profile_id) }}" class="btn btn-lg btn-secondary mt-1" title="Visualizar perfil"> <i class="fas fa-eye"></i> </a>
                         </div>
                     </div>
                 </div>
