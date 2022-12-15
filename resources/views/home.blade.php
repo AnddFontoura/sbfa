@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1> Dashboard - Página principal </h1>
+                <h1> Painel Principal </h1>
             </div>
         </div>
     </div>
@@ -53,7 +53,7 @@
     <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="small-box bg-success">
             <div class="inner">
-                <h3>53</h3>
+                <h3>{{ $countPlayers }}</h3>
                 <p>Jogadores Cadastrados</p>
             </div>
 
@@ -61,14 +61,14 @@
                 <i class="ion ion-stats-bars"></i>
             </div>
 
-            <a href="#" class="small-box-footer">Ver lista <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ route('players') }}" class="small-box-footer">Ver lista <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
 
     <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="small-box bg-info">
             <div class="inner">
-                <h3>53</h3>
+                <h3>{{ $countTeams }}</h3>
                 <p>Times Cadastrados</p>
             </div>
 
@@ -76,14 +76,14 @@
                 <i class="ion ion-stats-bars"></i>
             </div>
 
-            <a href="#" class="small-box-footer">Ver lista <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ route('teams') }}" class="small-box-footer">Ver lista <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
 
     <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="small-box bg-warning">
             <div class="inner">
-                <h3>53</h3>
+                <h3>{{ $countMatches }}</h3>
                 <p>Partidas que acontecerão</p>
             </div>
 
@@ -91,11 +91,11 @@
                 <i class="ion ion-stats-bars"></i>
             </div>
 
-            <a href="#" class="small-box-footer">Ver lista <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ route('matches') }}" class="small-box-footer">Ver lista <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
 
-    <div class="col-lg-6 col-md-6 col-sm-12">
+    <!--div class="col-lg-6 col-md-6 col-sm-12">
         <div class="card">
             <div class="card-header">
                 <b> Últimos Jogos </b>
@@ -186,7 +186,7 @@
         </div>
 
     </div>
-</div>
+</div-->
 @endsection
 
 @section('page_js')

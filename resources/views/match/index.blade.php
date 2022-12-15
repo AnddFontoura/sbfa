@@ -136,7 +136,9 @@
                 </div>
             @endforeach
         @else
-        <div class="alert alert-danger"> Nenhum jogo cadastrado, <a href="{{ route('matches.create', $team->id) }}"> clique aqui para cadastrar um </a> </div>
+        <div class="col-12">
+            <div class="alert alert-danger w-100"> Nenhum jogo cadastrado no momento </div>
+        </div>
         @endif
     </div>
 @endsection

@@ -46,7 +46,7 @@ class TeamHasPlayersController extends Controller
 
         $data = $request->except(['_token']);
         $data['team_id'] = $teamId;
-        $picture = $data['profilePicture'];
+        $picture = $data['profilePicture'] ?? null;
         unset($data['profilePicture']);
 
         $teamHasPlayer = TeamHasPlayers::create($data);
