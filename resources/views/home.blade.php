@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1> Dashboard - Página principal </h1>
+                <h1> Painel Principal </h1>
             </div>
         </div>
     </div>
@@ -61,7 +61,7 @@
                 <i class="ion ion-stats-bars"></i>
             </div>
 
-            <a href="#" class="small-box-footer">Ver lista <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ route('players') }}" class="small-box-footer">Ver lista <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
 
@@ -76,7 +76,7 @@
                 <i class="ion ion-stats-bars"></i>
             </div>
 
-            <a href="#" class="small-box-footer">Ver lista <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ route('teams') }}" class="small-box-footer">Ver lista <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
 
@@ -91,7 +91,7 @@
                 <i class="ion ion-stats-bars"></i>
             </div>
 
-            <a href="#" class="small-box-footer">Ver lista <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ route('matches') }}" class="small-box-footer">Ver lista <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
 
