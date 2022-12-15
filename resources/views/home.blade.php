@@ -53,7 +53,7 @@
     <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="small-box bg-success">
             <div class="inner">
-                <h3>53</h3>
+                <h3>{{ $countPlayers }}</h3>
                 <p>Jogadores Cadastrados</p>
             </div>
 
@@ -68,7 +68,7 @@
     <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="small-box bg-info">
             <div class="inner">
-                <h3>53</h3>
+                <h3>{{ $countTeams }}</h3>
                 <p>Times Cadastrados</p>
             </div>
 
@@ -83,7 +83,7 @@
     <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="small-box bg-warning">
             <div class="inner">
-                <h3>53</h3>
+                <h3>{{ $countMatches }}</h3>
                 <p>Partidas que acontecerão</p>
             </div>
 
@@ -95,7 +95,7 @@
         </div>
     </div>
 
-    <div class="col-lg-6 col-md-6 col-sm-12">
+    <!--div class="col-lg-6 col-md-6 col-sm-12">
         <div class="card">
             <div class="card-header">
                 <b> Últimos Jogos </b>
@@ -186,7 +186,7 @@
         </div>
 
     </div>
-</div>
+</div-->
 @endsection
 
 @section('page_js')
