@@ -45,6 +45,9 @@
                 </div>
 
                 <div class="col-md-6 col-12">
+                    @if(!$userInTeam)
+                        <a href="#" class="btn btn-success w-100"> + Entrar no time </a> 
+                    @endif
                     <div class="callout callout-info mt-3 shadow">
                         <h5> Criado por </h5>
                         <p> {{ $teamInfo->owner->name ?? 'Nome não cadastrado'}} </p>
