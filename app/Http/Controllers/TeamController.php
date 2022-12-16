@@ -25,7 +25,7 @@ class TeamController extends Controller
 
         $teams = $this->teamService->selectTeamsWithFilters($filter);
 
-        return view('team.index', compact('teams','cities', 'states'));
+        return view('team.index', compact('teams', 'cities', 'states'));
     }
 
     /**
@@ -106,9 +106,23 @@ class TeamController extends Controller
             ->first();
 
         $teamInfo = Team::where('id', $id)
-                ->first();
+            ->first();
 
-        return view("team.view",  compact('teamInfo', 'userInTeam'));
+        $countPlayersInTeam = TeamHasPlayers::where('team_id', $id)
+            ->where('active', 1)
+            ->count('id');
+
+        $countMatches = $this->matchService->getMatchOfTeam($id)->count('id');
+
+        return view(
+            "team.view",
+            compact(
+                'teamInfo',
+                'userInTeam',
+                'countPlayersInTeam',
+                'countMatches'
+            )
+        );
     }
 
     /**

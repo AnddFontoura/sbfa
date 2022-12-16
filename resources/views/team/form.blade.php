@@ -17,9 +17,7 @@
 
 <div class="col-12">
     <form action="@if($team) {{ route('teams.update', $team->id) }} @else {{ route('teams.save') }} @endif" method="POST" enctype="multipart/form-data">
-        @if($errors->any())
-        {{ $errors }}
-        @endif
+        @include('errors.form_errors')
 
         @csrf
         <div class="card">

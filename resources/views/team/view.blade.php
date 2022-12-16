@@ -24,7 +24,7 @@
 
                     <div class="small-box bg-primary mt-3">
                         <div class="inner">
-                            <h3>44</h3>
+                            <h3>{{ $countPlayersInTeam }}</h3>
                             <p>Jogadores ativos</p>
                         </div>
                         <div class="icon">
@@ -34,7 +34,7 @@
 
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>53</h3>
+                            <h3>{{ $countMatches }}</h3>
                             <p>Partidas registradas</p>
                         </div>
                         <div class="icon">
