@@ -25,9 +25,12 @@
         </div>
     </div>
     @endif
-    <div class="col-md-6 col-lg-4 col-12">
-        <div class="alert alert-danger"> Atualize seus dados cadastrais </div>
-    </div>
+
+    @if(\Illuminate\Support\Facades\Auth::user()->name)
+        <div class="col-md-6 col-lg-4 col-12">
+            <div class="alert alert-danger"> Atualize seus dados cadastrais </div>
+        </div>
+    @endif
 
     <div class="col-md-6 col-lg-4 col-12">
         @if(count($playerInvitedToAnyTeam) > 0)

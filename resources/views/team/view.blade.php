@@ -44,9 +44,11 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 col-12">
-                    @if(!$userInTeam)
-                        <a href="#" class="btn btn-success w-100"> + Entrar no time </a> 
+                <div class="col-md-6 col-12 mt-3">
+                    @if($teamInfo->can_player_join)
+                        @if(!$userInTeam)
+                            <button type="button" class="btn btn-success w-100" data-toggle="modal" data-target="#modal-join-team"> + Participar do time </button>
+                        @endif
                     @endif
                     <div class="callout callout-info mt-3 shadow">
                         <h5> Criado por </h5>
@@ -65,6 +67,32 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="modal fade" id="modal-join-team" aria-hidden="true" style="display: none;">
+        <form action="{{ route('players_joins_teams.save', [$teamInfo->id]) }}" method="POST">
+            @csrf
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Ingressar no time</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <span for="">Enviar mensagem ao time?</span>
+                        <textarea class="form-control" name="ask_description"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Pedir para Participar</button>
+                </div>
+            </div>
+        </div>
+        </form>
     </div>
 
 @endsection

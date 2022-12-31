@@ -78,4 +78,10 @@ Route::middleware(['auth'])->group(function() {
         Route::match(['get', 'post'], '/', 'UserProfileController@index')->name('players');
         Route::get('{profileId}', 'UserProfileController@show')->name('players.view');
     });
+
+    Route::prefix('players-joins-teams')->group(function() {
+        Route::get('{teamId}', 'PlayerJoinTeamController@index')->name('players_joins_teams');
+        Route::get('form/{teamId}', 'PlayerJoinTeamController@create')->name('players_joins_teams.create');
+        Route::post('store/{teamId}', 'PlayerJoinTeamController@store')->name('players_joins_teams.save');
+    });
 });

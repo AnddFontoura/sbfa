@@ -20,25 +20,39 @@
         </div>
 
         <div class="col-md-6 col-12 mt-3">
-            <a href="{{ route('teams.edit', [$team->id]) }}" class="btn btn-lg bg-primary w-100"> Editar time </a>
+            <a href="{{ route('teams.edit', [$team->id]) }}" class="btn btn-lg bg-primary w-100">
+                Editar time
+            </a>
+
+            <a href="{{ route('players_joins_teams', [$team->id]) }}" class="btn btn-lg bg-secondary w-100 mt-3">
+                Pedidos de Ingresso
+                <span class="badge bg-success">{{ $playerAskingToJoin }}</span>
+            </a>
+
             <div class="row">
 
-                <div class="col-md-6 col-12 mt-6 mt-3">
-                    <a class="btn btn-success w-100" href="{{ route('matches.create', $team->id) }}"> Adicionar
-                        partida </a>
+                <div class="col-md-6 col-12 mt-3">
+                    <a class="btn btn-success w-100" href="{{ route('matches.create', $team->id) }}">
+                        Adicionar partida
+                    </a>
                 </div>
 
-                <div class="col-md-6 col-12 mt-6 mt-3">
+                <div class="col-md-6 col-12 mt-3">
+                    <a class="btn btn-warning w-100" href="#">
+                        Lista de partidas
+                    </a>
+                </div>
+
+                <div class="col-md-6 col-12 mt-3">
                     <a class="btn btn-success w-100" href="{{ route('team_has_player.create', $team->id) }}"> Adicionar
-                        Jogador </a>
+                        Jogador
+                    </a>
                 </div>
 
-                <div class="col-md-6 col-12 mt-6 mt-3">
-                    <a class="btn btn-warning w-100" href="#"> Lista de partidas </a>
-                </div>
-
-                <div class="col-md-6 col-12 mt-6 mt-3">
-                    <a class="btn btn-warning w-100" href="#"> Lista de jogadores </a>
+                <div class="col-md-6 col-12 mt-3">
+                    <a class="btn btn-warning w-100" href="#">
+                        Lista de jogadores
+                    </a>
                 </div>
             </div>
         </div>
@@ -65,8 +79,10 @@
                              aria-labelledby="teamPlayerList-tab">
                             @if(count($teamHasPlayers) == 0)
                                 <div class="alert alert-success m-3">
-                                    Ainda não existem jogadores adicionados. Adicione um jogador <a
-                                        href="{{ route('team_has_player.create', $team->id) }}"> clicando aqui </a>
+                                    Ainda não existem jogadores adicionados. Adicione um jogador
+                                    <a href="{{ route('team_has_player.create', $team->id) }}">
+                                        clicando aqui
+                                    </a>
                                 </div>
                             @else
                                 <div class="row">
@@ -104,18 +120,22 @@
 
                                                 <div class="card-footer text-center">
                                                     <a href="{{ route('team_has_player.view', [$team->id, $teamPlayer->id]) }} "
-                                                       class="btn btn-lg btn-secondary mt-1" title="Visualizar"> <i
-                                                            class="fas fa-search-plus"></i> </a>
+                                                       class="btn btn-lg btn-secondary mt-1" title="Visualizar">
+                                                        <i class="fas fa-search-plus"></i>
+                                                    </a>
                                                     <a href="{{ route('team_has_player.edit', [$team->id, $teamPlayer->id]) }} "
-                                                       class="btn btn-lg btn-warning mt-1" title="Editar"> <i
-                                                            class="fas fa-edit"></i> </a>
+                                                       class="btn btn-lg btn-warning mt-1" title="Editar">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
                                                     <div class="btn btn-lg btn-success btnInvitePlayer mt-1"
                                                          data-playerid="{{ $teamPlayer->id }}"
-                                                         title="Convidar Jogador por e-mail"><i
-                                                            class="fas fa-envelope"></i></div>
+                                                         title="Convidar Jogador por e-mail">
+                                                        <i class="fas fa-envelope"></i>
+                                                    </div>
                                                     <div class="btn btn-lg btn-danger btnDelete mt-1"
-                                                         data-playerid="{{ $teamPlayer->id }}" title="Deletar"><i
-                                                            class="fas fa-user-times"></i></div>
+                                                         data-playerid="{{ $teamPlayer->id }}" title="Deletar">
+                                                        <i class="fas fa-user-times"></i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -150,26 +170,32 @@
                                                 <div class="card-footer text-center">
                                                     <a href="{{ route('matches.view', $matchInfo->id) }}"
                                                        class="btn btn-lg btn-secondary mt-1"
-                                                       title="Visualizar dados gerais da partida"> <i
-                                                            class="fas fa-eye"></i> </a>
+                                                       title="Visualizar dados gerais da partida">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
                                                     <a href="{{ route('matches.edit', [$team->id, $matchInfo->id]) }}"
                                                        class="btn btn-lg btn-warning mt-1"
-                                                       title="Editar Informações da Partida"> <i
-                                                            class="fas fa-edit"></i> </a>
+                                                       title="Editar Informações da Partida">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
                                                     <a href="{{ route('matches.player-at.create', [$team->id, $matchInfo->id]) }}"
                                                        class="btn btn-lg btn-success mt-1" title="Vincular Jogadores">
-                                                        <i class="fas fa-users"></i> </a>
+                                                        <i class="fas fa-users"></i>
+                                                    </a>
                                                     <a href="{{ route('matches.statistics.create', [$team->id, $matchInfo->id]) }}"
                                                        class="btn btn-lg btn-primary mt-1"
-                                                       title="Editar Estatisticas dos jogadores"> <i
-                                                            class="fas fa-chart-bar"></i> </a>
+                                                       title="Editar Estatisticas dos jogadores">
+                                                        <i class="fas fa-chart-bar"></i>
+                                                    </a>
                                                     <a href="{{ route('matches.cost.create', [$team->id, $matchInfo->id]) }}"
                                                        class="btn btn-lg bg-indigo text-white mt-1"
-                                                       title="Editar financeiro da partida"> <i
-                                                            class="fas fa-coins"></i> </a>
+                                                       title="Editar financeiro da partida">
+                                                        <i class="fas fa-coins"></i>
+                                                    </a>
                                                     <div class="btn btn-lg btn-danger btnDeleteMatch mt-1"
-                                                         data-matchid="{{ $matchInfo->id }}" title="Deletar partida"><i
-                                                            class="fas fa-minus-circle"></i></div>
+                                                         data-matchid="{{ $matchInfo->id }}" title="Deletar partida">
+                                                        <i class="fas fa-minus-circle"></i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
