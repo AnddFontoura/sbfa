@@ -50,7 +50,7 @@
                         <tr>
                             <th>Nome do Jogador</th>
                             <th>Status do Pedido</th>
-                            <th>Opções</th>
+                            <th class="text-right">Opções</th>
                         </tr>
                     </thead>
 
@@ -78,8 +78,8 @@
                                 @endswitch
                             </td>
 
-                            <td>
-
+                            <td class="text-right">
+                                <a href="{{ route('players_joins_teams.create', [$player->id]) }}" class="btn btn-success"> <i class="fas fa-user-edit"></i> Aprovação </a>
                             </td>
                         </tr>
                     @endforeach

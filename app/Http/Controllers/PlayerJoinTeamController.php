@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\GamePosition;
 use App\PlayerJoinTeam;
 use App\Team;
+use App\TeamHasPlayers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -70,24 +72,22 @@ class PlayerJoinTeamController extends Controller
         return back()->withErrors(['error' => 'O time não aceita novos jogadores no momento']);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
+    public function acceptOrRejectRequest(Request $request, $requestId)
     {
-        //
+        /**
+         * TODO: precisa de uma validação pra ver se o usuario logado
+         * pode ou não aceitar esse request
+         */
+
+        $playerJoinTeam = PlayerJoinTeam::where('id', $requestId)->first();
+        $team = Team::where('id', $playerJoinTeam->team_id)->first();
+        $teamHasPlayer = TeamHasPlayers::whereNull('user_id')->where('team_id', $playerJoinTeam->team_id)->get();
+        $gamePositions = GamePosition::get();
+
+        return view('player_join_team.form', compact('playerJoinTeam', 'team', 'teamHasPlayer', 'gamePositions'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\PlayerJoinTeam  $playerJoinTeam
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PlayerJoinTeam $playerJoinTeam)
+    public function saveChangesOnAskToJoin(PlayerJoinTeam $playerJoinTeam)
     {
         //
     }
