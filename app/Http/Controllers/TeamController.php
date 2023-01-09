@@ -6,6 +6,7 @@ use App\City;
 use App\Http\Requests\FilterTeamRequest;
 use App\State;
 use App\Team;
+use App\TeamHasPlayers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -24,7 +25,7 @@ class TeamController extends Controller
 
         $teams = $this->teamService->selectTeamsWithFilters($filter);
 
-        return view('team.index', compact('teams','cities', 'states'));
+        return view('team.index', compact('teams', 'cities', 'states'));
     }
 
     /**
@@ -61,6 +62,7 @@ class TeamController extends Controller
         $this->validate($request, [
             'name' => 'required|string|min:1|max:254',
             'description' => 'nullable|string|max:10000',
+            'can_player_join' => 'nullable|boolean',
             'city_id' => 'nullable|int',
             'logo' => 'nullable',
             'header' => 'nullable',
@@ -99,10 +101,32 @@ class TeamController extends Controller
      */
     public function show(int $id)
     {
-        $teamInfo = Team::where('id', $id)
-                ->first();
+        $userInTeam = null;
 
-        return view("team.view",  compact('teamInfo'));
+        $teamInfo = Team::where('id', $id)
+            ->first();
+
+        $countPlayersInTeam = TeamHasPlayers::where('team_id', $id)
+            ->where('active', 1)
+            ->count('id');
+
+        $countMatches = $this->matchService->getMatchOfTeam($id)->count('id');
+
+        if ($teamInfo->can_player_join) {
+            $userInTeam = TeamHasPlayers::where('user_id', Auth::user()->id)
+                ->where('team_id', $id)
+                ->first();
+        }
+
+        return view(
+            "team.view",
+            compact(
+                'teamInfo',
+                'userInTeam',
+                'countPlayersInTeam',
+                'countMatches'
+            )
+        );
     }
 
     /**

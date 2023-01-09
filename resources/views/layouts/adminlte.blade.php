@@ -128,6 +128,37 @@
                             <i class="fas fa-users mr-1"></i> <p> Jogadores </p>
                         </a>
                     </li>
+
+                    <!-- Player Menu -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-user mr-1"></i>
+                            <p>
+                                Meus dados
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Meu Perfil</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Meus times</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Meus Convites</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

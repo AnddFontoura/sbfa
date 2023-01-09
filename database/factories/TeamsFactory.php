@@ -23,6 +23,7 @@ $factory->define(Team::class, function (Faker $faker) {
     return [
         'owner_id' => $userId,
         'name' => $faker->name(),
+        'can_player_join' => rand(0,1),
         'description' => $faker->text(2000),
         'header' => $headers[rand(0,2)],
         'logo' => $logos[rand(0,2)],

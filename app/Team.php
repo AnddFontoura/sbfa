@@ -13,6 +13,7 @@ class Team extends Model
     protected $fillable = [
         'owner_id',
         'city_id',
+        'can_player_join',
         'name',
         'description',
         'logo',
