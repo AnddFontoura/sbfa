@@ -49,7 +49,8 @@
         </div>
 
         <div class="col-md-6 col-lg-6 col-sm-12 mt-3">
-            <form action="#" method="POST">
+            <form action="{{ route('players_joins_teams.save_changes', $playerJoinTeam->id) }}" method="POST">
+                @csrf
                 <div class="card">
                     <div class="card-header">
                         <b> Formulário de aprovação </b>

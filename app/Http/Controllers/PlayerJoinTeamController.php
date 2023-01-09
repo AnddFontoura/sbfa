@@ -13,10 +13,6 @@ use Illuminate\View\View;
 
 class PlayerJoinTeamController extends Controller
 {
-    /**
-     * @param int $teamId
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View
-     */
     public function index(Request $request, int $teamId)
     {
         $this->validate($request, [
@@ -39,12 +35,6 @@ class PlayerJoinTeamController extends Controller
         ));
     }
 
-    /**
-     * @param Request $request
-     * @param int $teamId
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
-     */
     public function store(Request $request, int $teamId): RedirectResponse
     {
         $this->validate($request, [
@@ -87,40 +77,73 @@ class PlayerJoinTeamController extends Controller
         return view('player_join_team.form', compact('playerJoinTeam', 'team', 'teamHasPlayer', 'gamePositions'));
     }
 
-    public function saveChangesOnAskToJoin(PlayerJoinTeam $playerJoinTeam)
+    public function saveChangesOnAskToJoin(Request $request, int $requestId)
     {
-        //
+        $this->validate($request, [
+            'approveOrReject' => 'required|numeric',
+            'approveOrRejectDescription' => 'nullable|string|max:1000',
+            'teamHasPlayerId' => 'nullable|numeric',
+            'userIsPlayer' => 'nullable|boolean',
+            'userName' =>  'required|string|min:1|max:254',
+            'userPhoto' => 'nullable|file|image',
+            'userNickName' => 'nullable|string|min:1|max:254',
+            'userWeight' => 'nullable|numeric',
+            'userHeight' => 'nullable|numeric',
+            'userBirthday' => 'nullable|date',
+            'userDescription' => 'nullable|string|min:1|max:10000',
+            'userPositions' => 'nullable|array'
+        ]);
+
+        $data = $request->except('_token');
+
+        $playerJoinTeamRequest = PlayerJoinTeam::where('id', $requestId)
+            ->update([
+                'status' => $data['approveOrReject'],
+                'response_description' => $data['approveOrRejectDescription'] ?? null
+            ]);
+
+        if ($data['approveOrReject'] == -1) {
+            return redirect('players_joins_teams/' . $playerJoinTeamRequest->team_id)-with(['message' => 'Pedido rejeitado']);
+        }
+
+        if($data['teamHasPlayerId'] != 0) {
+            $teamHasPlayer = TeamHasPlayers::where('team_id', $playerJoinTeamRequest->team_id)
+                ->where('id', $playerJoinTeamRequest->id)
+                ->update([
+                    'user_id' => $playerJoinTeamRequest->user_id
+                ]);
+        } else {
+            $picture = $data['profilePicture'] ?? null;
+            unset($data['profilePicture']);
+
+            $teamHasPlayer = TeamHasPlayers::create([
+                'name' => $data['name'],
+                'nickname' => $data['nickname'],
+                'number' => $data['number'],
+                'weight' => $data['weight'],
+                'height' => $data['height'],
+                'birthday' => $data['birthday'],
+            ]);
+
+            if ($request->file('profilePicture')) {
+                $teamHasPlayer->profile_picture = $this->uploadService->uploadFileToFolder('public', 'teams_profiles_pictures', $picture);
+                $teamHasPlayer->save();
+            }
+        }
+
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\PlayerJoinTeam  $playerJoinTeam
-     * @return \Illuminate\Http\Response
-     */
     public function edit(PlayerJoinTeam $playerJoinTeam)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\PlayerJoinTeam  $playerJoinTeam
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, PlayerJoinTeam $playerJoinTeam)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\PlayerJoinTeam  $playerJoinTeam
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(PlayerJoinTeam $playerJoinTeam)
     {
         //
