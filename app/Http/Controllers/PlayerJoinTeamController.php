@@ -84,14 +84,13 @@ class PlayerJoinTeamController extends Controller
             'approveOrRejectDescription' => 'nullable|string|max:1000',
             'teamHasPlayerId' => 'nullable|numeric',
             'userIsPlayer' => 'nullable|boolean',
-            'userName' =>  'required|string|min:1|max:254',
-            'userPhoto' => 'nullable|file|image',
-            'userNickName' => 'nullable|string|min:1|max:254',
-            'userWeight' => 'nullable|numeric',
-            'userHeight' => 'nullable|numeric',
-            'userBirthday' => 'nullable|date',
-            'userDescription' => 'nullable|string|min:1|max:10000',
-            'userPositions' => 'nullable|array'
+            'name' =>  'required|string|min:1|max:254',
+            'profilePicture' => 'nullable|file|image',
+            'nickname' => 'nullable|string|min:1|max:254',
+            'weight' => 'nullable|numeric',
+            'height' => 'nullable|numeric',
+            'birthday' => 'nullable|date',
+            'position_id' => 'nullable|numeric'
         ]);
 
         $data = $request->except('_token');
@@ -102,8 +101,11 @@ class PlayerJoinTeamController extends Controller
                 'response_description' => $data['approveOrRejectDescription'] ?? null
             ]);
 
+
+        $playerJoinTeamRequest = PlayerJoinTeam::where('id', $requestId)->first();
+
         if ($data['approveOrReject'] == -1) {
-            return redirect('players_joins_teams/' . $playerJoinTeamRequest->team_id)-with(['message' => 'Pedido rejeitado']);
+            return redirect('players-joins-teams/' . $playerJoinTeamRequest->team_id)-with(['message' => 'Pedido rejeitado']);
         }
 
         if($data['teamHasPlayerId'] != 0) {
@@ -112,6 +114,8 @@ class PlayerJoinTeamController extends Controller
                 ->update([
                     'user_id' => $playerJoinTeamRequest->user_id
                 ]);
+
+                return redirect('players-joins-teams/' . $playerJoinTeamRequest->team_id)-with(['message' => 'Pedido Aprovado e adicionado a um perfil ativo']);
         } else {
             $picture = $data['profilePicture'] ?? null;
             unset($data['profilePicture']);
@@ -123,12 +127,15 @@ class PlayerJoinTeamController extends Controller
                 'weight' => $data['weight'],
                 'height' => $data['height'],
                 'birthday' => $data['birthday'],
+                'position_id' => $data['position_id'],
             ]);
 
             if ($request->file('profilePicture')) {
                 $teamHasPlayer->profile_picture = $this->uploadService->uploadFileToFolder('public', 'teams_profiles_pictures', $picture);
                 $teamHasPlayer->save();
             }
+            
+            return redirect('players-joins-teams/' . $playerJoinTeamRequest->team_id)-with(['message' => 'Pedido Aprovado e novo jogador criado']);
         }
 
 

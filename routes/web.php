@@ -83,6 +83,6 @@ Route::middleware(['auth'])->group(function() {
         Route::get('{teamId}', 'PlayerJoinTeamController@index')->name('players_joins_teams');
         Route::get('form/{requestId}', 'PlayerJoinTeamController@acceptOrRejectRequest')->name('players_joins_teams.create');
         Route::post('store/{teamId}', 'PlayerJoinTeamController@store')->name('players_joins_teams.save');
-        Route::post('update-request/{$requestId}', 'PlayerJoinTeamController@saveChangesOnAskToJoin')->name('players_joins_teams.save_changes');
+        Route::post('update-request/{requestId}', 'PlayerJoinTeamController@saveChangesOnAskToJoin')->name('players_joins_teams.save_changes');
     });
 });

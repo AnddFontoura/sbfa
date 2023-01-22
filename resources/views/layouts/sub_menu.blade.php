@@ -1,3 +1,4 @@
+@if(isset(request()->route()->action['prefix']))
     @switch(request()->route()->action['prefix'])
         @case('/teams')
             @php
@@ -16,3 +17,4 @@
             </li>
         @endforeach
     @endif
+@endif

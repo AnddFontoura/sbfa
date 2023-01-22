@@ -2,7 +2,11 @@
 
 @section('content')
 
-<form action="{{ route('profile.save') }}" method="POST" enctype="multipart/form-data">
+            @if($errors->any())
+                {{ $errors }}
+            @endif
+
+<form action="{{ route('players_joins_teams.save_changes', [$playerJoinTeam->id]) }}" method="POST" enctype="multipart/form-data">
 
     @csrf
     <div class="row">
