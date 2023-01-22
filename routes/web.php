@@ -24,6 +24,7 @@ Route::middleware(['auth'])->group(function() {
         Route::post('store', 'TeamController@store')->name('teams.save')->middleware('verified');
         Route::post('store/{id}', 'TeamController@store')->name('teams.update')->middleware('verified');
         Route::get('show/{id}', 'TeamController@show')->name('teams.view');
+        Route::get('players-list/{id}', 'TeamController@playersList')->name('teams.players_list');
     });
 
     Route::prefix('teams-has-players')->group(function() {

@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Storage;
 
 class TeamController extends Controller
 {
-    /**
-     * @param FilterTeamRequest $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
     public function index(FilterTeamRequest $request)
     {
         $filter = $request->except('_token');
@@ -28,10 +24,6 @@ class TeamController extends Controller
         return view('team.index', compact('teams', 'cities', 'states'));
     }
 
-    /**
-     * @param int|null $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
     public function create(int $id = null)
     {
         $cities = City::get();
@@ -46,13 +38,7 @@ class TeamController extends Controller
 
         return view('team.form', compact('team', 'cities'));
     }
-
-    /**
-     * @param Request $request
-     * @param int|null $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * @throws \Illuminate\Validation\ValidationException
-     */
+    
     public function store(Request $request, int $id = null)
     {
         if ($id) {
@@ -95,13 +81,8 @@ class TeamController extends Controller
         return redirect("teams/show/" . $team->id);
     }
 
-    /**
-     * @param int $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
     public function show(int $id)
     {
-        $userInTeam = null;
         $userId = Auth::user()->id;
 
         $teamInfo = Team::where('id', $id)
@@ -113,11 +94,9 @@ class TeamController extends Controller
 
         $countMatches = $this->matchService->getMatchOfTeam($id)->count('id');
 
-        if ($teamInfo->can_player_join) {
-            $userInTeam = TeamHasPlayers::where('user_id', $userId)
-                ->where('team_id', $id)
-                ->first();
-        }
+        $userInTeam = TeamHasPlayers::where('user_id', $userId)
+            ->where('team_id', $id)
+            ->first();
 
         return view(
             "team.view",
@@ -130,12 +109,15 @@ class TeamController extends Controller
         );
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Team  $team
-     * @return \Illuminate\Http\Response
-     */
+    public function playersList(Request $request, int $teamId)
+    {
+        $playersList = TeamHasPlayers::where("team_id", $teamId)
+            ->orderBy('name', 'desc')
+            ->paginate(20);
+            
+        return view('team.players_list', compact('playersList'));
+    }
+
     public function destroy(Team $team)
     {
         //

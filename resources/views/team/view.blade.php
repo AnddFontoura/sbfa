@@ -30,6 +30,9 @@
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
                         </div>
+                        @if($userInTeam)
+                            <a href="{{ route('teams.players_list) }}" class="btn btn-primary text-center w-100"> Ver Jogadores </a>
+                        @endif
                     </div>
 
                     <div class="small-box bg-success">
