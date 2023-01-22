@@ -102,6 +102,7 @@ class TeamController extends Controller
     public function show(int $id)
     {
         $userInTeam = null;
+        $userId = Auth::user()->id;
 
         $teamInfo = Team::where('id', $id)
             ->first();
@@ -113,7 +114,7 @@ class TeamController extends Controller
         $countMatches = $this->matchService->getMatchOfTeam($id)->count('id');
 
         if ($teamInfo->can_player_join) {
-            $userInTeam = TeamHasPlayers::where('user_id', Auth::user()->id)
+            $userInTeam = TeamHasPlayers::where('user_id', $userId)
                 ->where('team_id', $id)
                 ->first();
         }
