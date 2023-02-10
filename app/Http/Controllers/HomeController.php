@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Matches;
 use App\PlayerInvited;
 use App\Team;
+use App\TeamHasPlayers;
 use App\UserProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,20 +30,21 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $userEmail = Auth::user()->email;
+        $userId = Auth::user()->id;
         $userHasValidEmail = Auth::user()->email_verified_at;
 
         $playerInvitedToAnyTeam = PlayerInvited::where('email', $userEmail)->get();
 
-        $countPlayers = UserProfile::where('is_player', true)->count('id');
-        $countTeams = Team::count('id');
-        $countMatches = Matches::where('match_datetime', '>', 'NOW()')->count('id');
-
+        $teamsYouJoin = Team::select('teams.*')
+            ->leftJoin('teams_has_players', 'teams_has_players.team_id', 'teams.id')
+            ->where('owner_id', $userId)
+            ->orWhere('user_id', $userId)
+            ->get();
+            
         return view('home', compact(
             'playerInvitedToAnyTeam', 
             'userHasValidEmail', 
-            'countPlayers',
-            'countTeams',
-            'countMatches',
+            'teamsYouJoin'
         ));
     }
 }

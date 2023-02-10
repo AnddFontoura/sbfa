@@ -24,6 +24,7 @@ Route::middleware(['auth'])->group(function() {
         Route::post('store', 'TeamController@store')->name('teams.save')->middleware('verified');
         Route::post('store/{id}', 'TeamController@store')->name('teams.update')->middleware('verified');
         Route::get('show/{id}', 'TeamController@show')->name('teams.view');
+        Route::get('players-list/{id}', 'TeamController@playersList')->name('teams.players_list');
     });
 
     Route::prefix('teams-has-players')->group(function() {
@@ -77,5 +78,12 @@ Route::middleware(['auth'])->group(function() {
     Route::prefix('players')->group(function() {
         Route::match(['get', 'post'], '/', 'UserProfileController@index')->name('players');
         Route::get('{profileId}', 'UserProfileController@show')->name('players.view');
+    });
+
+    Route::prefix('players-joins-teams')->group(function() {
+        Route::get('{teamId}', 'PlayerJoinTeamController@index')->name('players_joins_teams');
+        Route::get('form/{requestId}', 'PlayerJoinTeamController@acceptOrRejectRequest')->name('players_joins_teams.create');
+        Route::post('store/{teamId}', 'PlayerJoinTeamController@store')->name('players_joins_teams.save');
+        Route::post('update-request/{requestId}', 'PlayerJoinTeamController@saveChangesOnAskToJoin')->name('players_joins_teams.save_changes');
     });
 });
